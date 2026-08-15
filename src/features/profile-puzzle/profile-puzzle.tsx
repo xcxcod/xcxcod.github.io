@@ -342,9 +342,19 @@ export function ProfilePuzzle({ imageUrl, alt }: { imageUrl?: string; alt: strin
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={imageUrl}
+          alt=""
+          aria-hidden="true"
+          className={cn(
+            "absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-0 blur-xl transition duration-500",
+            revealed && "opacity-55"
+          )}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={imageUrl}
           alt={alt}
           className={cn(
-            "absolute inset-0 h-full w-full object-cover object-top transition duration-500",
+            "absolute inset-0 h-full w-full object-contain object-center transition duration-500",
             revealed ? "scale-100 opacity-100" : "scale-[1.015] opacity-0"
           )}
         />
