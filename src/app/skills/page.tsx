@@ -6,11 +6,11 @@ export default async function SkillsPage() {
   const skills = await getSkills();
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-      <SectionHeading eyebrow="Skills" title="Technical areas">
+    <section className="section-shell py-16 sm:py-24">
+      <SectionHeading eyebrow="// toolkit" title="Technologies grouped by how I use them">
         Skills are shown by category without inflated proficiency claims. Admin-entered detail can be added later where useful.
       </SectionHeading>
-      <div className="mt-10 grid gap-5 md:grid-cols-2">
+      <div className="mt-14 grid gap-x-12 lg:grid-cols-2">
         {skills.map((group) => <SkillGroup key={group.id} group={group} />)}
       </div>
     </section>

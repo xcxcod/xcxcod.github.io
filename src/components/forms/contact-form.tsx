@@ -12,7 +12,7 @@ export function ContactForm() {
   const [state, action] = useFormState(submitContact, initialState);
 
   return (
-    <form action={action} className="grid gap-5 rounded-md border border-line bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <form action={action} className="grid gap-6 border-y border-ink/15 py-8 dark:border-white/15">
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <FormInput label="Name" name="name" autoComplete="name" required />
       <FormInput label="Email" name="email" type="email" autoComplete="email" required />

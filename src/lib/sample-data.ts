@@ -1,8 +1,8 @@
 import type { Profile, Project, SkillGroup } from "@/types/portfolio";
 
 export const profile: Profile = {
-  name: "Your Name",
-  headline: "Information Technology student focused on reliable software and secure systems",
+  name: "Dani Adonai",
+  headline: "Information Technology student building across software, cloud and cybersecurity",
   intro:
     "An early-career IT professional building practical experience across software development, cybersecurity, cloud computing, and backend engineering.",
   biography:
