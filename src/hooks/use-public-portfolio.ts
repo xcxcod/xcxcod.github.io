@@ -6,11 +6,10 @@ import { db } from "@/lib/firebase/client";
 import { profile as fallbackProfile, projects as fallbackProjects, skillGroups as fallbackSkills } from "@/lib/sample-data";
 import type { Profile, Project, SkillGroup } from "@/types/portfolio";
 
-const publicProfileImageUrl = "/images/profile-placeholder.svg";
-const localPrivateProfileImageUrl = "/api/local-profile-image";
+const publicProfileImageUrl = "/images/profile-photo.jpg";
 
 function resolveProfileImageUrl() {
-  return process.env.NODE_ENV === "development" ? localPrivateProfileImageUrl : publicProfileImageUrl;
+  return publicProfileImageUrl;
 }
 
 type PortfolioState = {

@@ -114,16 +114,16 @@ describe("IntroOverlay", () => {
     const enterButton = await screen.findByRole("button", { name: /enter without scratching/i });
     await user.click(enterButton);
 
-    expect(localStorage.getItem("portfolio-intro-seen")).toBe("true");
+    expect(localStorage.getItem("portfolio-intro-seen")).toBeNull();
     await waitFor(() => expect(screen.queryByRole("button", { name: /enter without scratching/i })).not.toBeInTheDocument());
   });
 
-  it("does not render for returning visitors in production", async () => {
+  it("renders for returning visitors in production", async () => {
     vi.stubEnv("NODE_ENV", "production");
     localStorage.setItem("portfolio-intro-seen", "true");
     render(<IntroOverlay />);
 
-    await waitFor(() => expect(screen.queryByRole("button", { name: /enter without scratching/i })).not.toBeInTheDocument());
+    expect(await screen.findByRole("button", { name: /enter without scratching/i })).toBeInTheDocument();
   });
 
   it("still renders for returning visitors in development", async () => {
@@ -144,7 +144,7 @@ describe("IntroOverlay", () => {
     dispatchPointer(canvas as HTMLCanvasElement, "pointerdown", 120, 120);
     dispatchPointer(canvas as HTMLCanvasElement, "pointermove", 220, 180);
 
-    await waitFor(() => expect(localStorage.getItem("portfolio-intro-seen")).toBe("true"));
+    await waitFor(() => expect(screen.queryByRole("button", { name: /enter without scratching/i })).not.toBeInTheDocument());
   });
 
   it("does not scratch from passive mouse movement", async () => {

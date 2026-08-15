@@ -13,8 +13,9 @@ export async function GET() {
   }
 
   try {
-    const image = await readFile(imagePath);
-    const extension = path.extname(imagePath).toLowerCase();
+    const resolvedImagePath = path.isAbsolute(imagePath) ? imagePath : path.resolve(process.cwd(), imagePath);
+    const image = await readFile(resolvedImagePath);
+    const extension = path.extname(resolvedImagePath).toLowerCase();
     const contentType = extension === ".jpg" || extension === ".jpeg" ? "image/jpeg" : "image/png";
 
     return new Response(new Uint8Array(image), {

@@ -11,6 +11,7 @@ import {
   getFaceStickers,
   getGestureTurn,
   initialScrambledCube,
+  initialScrambleTurns,
   isSolvedCube,
   parseMove,
   solvedCube,
@@ -25,6 +26,12 @@ describe("profile Rubik's Cube puzzle logic", () => {
 
   it("detects the initial scramble as unsolved", () => {
     expect(isSolvedCube(initialScrambledCube)).toBe(false);
+  });
+
+  it("solves the initial profile puzzle scramble with its stored solution turns", () => {
+    const solvedInitial = applyLayerTurnsForTest(initialScrambledCube, getSolutionTurnsFromScramble(initialScrambleTurns));
+
+    expect(isSolvedCube(solvedInitial)).toBe(true);
   });
 
   it("applies valid moves and inverses without creating an impossible sticker set", () => {
