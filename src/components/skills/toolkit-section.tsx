@@ -25,7 +25,7 @@ import { TbBrandVscode } from "react-icons/tb";
 import type { SkillGroup } from "@/types/portfolio";
 import { cn } from "@/lib/utils";
 
-const STORAGE_KEY = "portfolio-toolkit-motion";
+const STORAGE_KEY = "portfolio-toolkit-motion-v2";
 const portfolioLogoColor = "#1d6f8f";
 const portfolioLogoAccent = "#0f5d57";
 
@@ -101,11 +101,11 @@ const featuredTechnologySizes: Record<string, number> = {
   docker: 1.08
 };
 const orbitRatios: OrbitLayout[] = [
-  { rx: 0.38, ry: 0.29, rotation: -3, speed: 0.010, direction: 1, phase: 218, labelAngle: 210, stroke: 1.2, opacity: 0.2 },
-  { rx: 0.55, ry: 0.41, rotation: 5, speed: 0.0075, direction: -1, phase: 288, labelAngle: 324, stroke: 0.95, opacity: 0.18, dash: "7 11" },
-  { rx: 0.7, ry: 0.55, rotation: -6, speed: 0.0058, direction: 1, phase: 30, labelAngle: 48, stroke: 1.45, opacity: 0.22 },
-  { rx: 0.84, ry: 0.68, rotation: 4, speed: 0.0048, direction: -1, phase: 104, labelAngle: 124, stroke: 1, opacity: 0.16, dash: "3 9" },
-  { rx: 0.98, ry: 0.8, rotation: -4, speed: 0.0039, direction: 1, phase: 166, labelAngle: 168, stroke: 1.7, opacity: 0.2 }
+  { rx: 0.38, ry: 0.29, rotation: -3, speed: 0.014, direction: 1, phase: 218, labelAngle: 210, stroke: 1.2, opacity: 0.2 },
+  { rx: 0.55, ry: 0.41, rotation: 5, speed: 0.0105, direction: -1, phase: 288, labelAngle: 324, stroke: 0.95, opacity: 0.18, dash: "7 11" },
+  { rx: 0.7, ry: 0.55, rotation: -6, speed: 0.0082, direction: 1, phase: 30, labelAngle: 48, stroke: 1.45, opacity: 0.22 },
+  { rx: 0.84, ry: 0.68, rotation: 4, speed: 0.0068, direction: -1, phase: 104, labelAngle: 124, stroke: 1, opacity: 0.16, dash: "3 9" },
+  { rx: 0.98, ry: 0.8, rotation: -4, speed: 0.0055, direction: 1, phase: 166, labelAngle: 168, stroke: 1.7, opacity: 0.2 }
 ];
 
 function getLogo(skill: string) {
@@ -217,7 +217,7 @@ export function ToolkitSection({ skills, compact = false }: { skills: SkillGroup
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const stored = sessionStorage.getItem(STORAGE_KEY);
 
-    setMotionEnabled(stored ? stored === "on" : !media.matches);
+    setMotionEnabled(stored === "off" ? false : !media.matches);
     setReady(true);
 
     function handleChange(event: MediaQueryListEvent) {
