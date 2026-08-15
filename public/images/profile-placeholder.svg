@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" role="img" aria-labelledby="title desc">
+  <title id="title">Private profile image placeholder</title>
+  <desc id="desc">Abstract placeholder used when the personal profile image is private.</desc>
+  <rect width="800" height="900" fill="#080b12"/>
+  <path d="M80 80h640v740H80z" fill="#f7f5ef"/>
+  <path d="M112 112h576v676H112z" fill="#172033"/>
+  <path d="M112 112h576v676H112z" fill="url(#grid)" opacity=".5"/>
+  <circle cx="400" cy="330" r="120" fill="#1d6f8f" opacity=".2"/>
+  <circle cx="400" cy="330" r="92" fill="#f7f5ef"/>
+  <path d="M220 680c26-112 104-178 180-178s154 66 180 178" fill="#f7f5ef"/>
+  <path d="M184 156h120M496 156h120M184 744h120M496 744h120" stroke="#1d6f8f" stroke-width="12" stroke-linecap="square"/>
+  <text x="400" y="390" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="34" font-weight="700" fill="#172033">PRIVATE</text>
+  <text x="400" y="716" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="38" font-weight="700" fill="#172033">PROFILE IMAGE</text>
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0v48" fill="none" stroke="#f7f5ef" stroke-opacity=".08" stroke-width="2"/>
+    </pattern>
+  </defs>
+</svg>

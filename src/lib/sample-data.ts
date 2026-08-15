@@ -19,7 +19,7 @@ export const profile: Profile = {
   study: "Information Technology",
   githubUrl: "YOUR_GITHUB_URL",
   linkedinUrl: "YOUR_LINKEDIN_URL",
-  profileImageUrl: "/images/profile.png"
+  profileImageUrl: "/images/profile-placeholder.svg"
 };
 
 export const projects: Project[] = [

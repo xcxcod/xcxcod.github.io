@@ -130,7 +130,7 @@ export function ProfilePuzzle({ imageUrl, alt }: { imageUrl?: string; alt: strin
   }, [timerRunning]);
 
   const visibleStickers = getFaceStickers(cube, currentFace);
-  const progressLabel = solved || revealed ? "Solved" : solutionTurns.length <= 2 ? "Almost solved" : `${solutionTurns.length} helpful moves`;
+  const progressLabel = solved || revealed ? "Solved" : solutionTurns.length <= 2 ? "Almost solved" : "Ready";
 
   function revealPhoto(nextSolved = false) {
     setTimerRunning(false);
@@ -305,10 +305,15 @@ export function ProfilePuzzle({ imageUrl, alt }: { imageUrl?: string; alt: strin
 
   return (
     <div className="mx-auto max-w-[24rem] lg:max-w-none">
-      <div className="mb-2 grid grid-cols-[1fr_auto] items-end gap-3 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-        <div>
-          <span>{revealed ? "Profile revealed" : solved ? "Solved" : "Solve to reveal me."}</span>
-          <div className="mt-2 inline-flex items-center gap-1 border border-ink/10 p-1 dark:border-white/10" aria-label="Rubik's Cube difficulty">
+      <div className="mb-3 grid gap-3 font-mono uppercase text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <span className="text-[0.72rem] tracking-[0.18em] text-ink dark:text-white">
+            {revealed ? "Profile revealed" : solved ? "Solved" : "Solve to reveal me."}
+          </span>
+          <span className="text-right text-[0.68rem] tracking-[0.14em]">Moves: {moves} <span className="mx-1 text-slate-300 dark:text-slate-600">/</span> Time: {formatTime(seconds)}</span>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="inline-flex items-center gap-1 border border-ink/10 p-1 dark:border-white/10" aria-label="Rubik's Cube difficulty">
             {(["easy", "normal"] as Difficulty[]).map((level) => (
               <button
                 key={level}
@@ -329,8 +334,8 @@ export function ProfilePuzzle({ imageUrl, alt }: { imageUrl?: string; alt: strin
               </button>
             ))}
           </div>
+          <span className="text-[0.65rem] tracking-[0.14em]">{progressLabel}</span>
         </div>
-        <span className="text-right">Moves: {moves} / Time: {formatTime(seconds)}</span>
       </div>
 
       <div className="relative aspect-[4/4.45] overflow-hidden rounded-[2rem] bg-slate-950 p-3 shadow-[18px_18px_0_rgba(23,32,51,0.08)] dark:bg-black/80 sm:p-4">
@@ -398,32 +403,36 @@ export function ProfilePuzzle({ imageUrl, alt }: { imageUrl?: string; alt: strin
         ) : null}
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-3">
-        <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{progressLabel}</span>
-        <button type="button" onClick={showHint} aria-label="Show Rubik's Cube hint" className="font-mono text-xs uppercase tracking-[0.16em] text-slate-600 transition hover:text-accent dark:text-slate-300">
-          Hint
-        </button>
-        <button type="button" onClick={undoMove} disabled={moveHistory.length === 0 || Boolean(pendingTurn)} aria-label="Undo last Rubik's Cube move" className="font-mono text-xs uppercase tracking-[0.16em] text-slate-600 transition hover:text-accent disabled:cursor-not-allowed disabled:text-slate-400 dark:text-slate-300 dark:disabled:text-slate-600">
-          Undo
-        </button>
-        <button type="button" onClick={resetPuzzle} aria-label="Reset Rubik's Cube puzzle" className="font-mono text-xs uppercase tracking-[0.16em] text-slate-600 transition hover:text-accent dark:text-slate-300">
-          Reset
-        </button>
-        <button type="button" onClick={revealed ? scramblePuzzle : scramblePuzzle} aria-label="Scramble Rubik's Cube puzzle" className="font-mono text-xs uppercase tracking-[0.16em] text-slate-600 transition hover:text-accent dark:text-slate-300">
-          {revealed ? "Play Again" : "Scramble"}
-        </button>
-        <button type="button" onClick={() => revealPhoto(false)} aria-label="Reveal profile photo" className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-accent transition hover:text-ink dark:text-teal-300 dark:hover:text-white">
-          Reveal Photo
-        </button>
-        <button type="button" onClick={() => setHelpOpen((value) => !value)} aria-expanded={helpOpen} className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500 transition hover:text-accent dark:text-slate-400">
+      <div className="mt-4 space-y-3">
+        <div className="grid grid-cols-3 gap-2">
+          <button type="button" onClick={showHint} aria-label="Show Rubik's Cube hint" className="min-h-10 border border-ink/15 px-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-slate-700 transition hover:border-accent hover:text-accent dark:border-white/15 dark:text-slate-200">
+            Hint
+          </button>
+          <button type="button" onClick={undoMove} disabled={moveHistory.length === 0 || Boolean(pendingTurn)} aria-label="Undo last Rubik's Cube move" className="min-h-10 border border-ink/15 px-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-slate-700 transition hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:border-ink/5 disabled:text-slate-400 dark:border-white/15 dark:text-slate-200 dark:disabled:border-white/10 dark:disabled:text-slate-600">
+            Undo
+          </button>
+          <button type="button" onClick={resetPuzzle} aria-label="Reset Rubik's Cube puzzle" className="min-h-10 border border-ink/15 px-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-slate-700 transition hover:border-accent hover:text-accent dark:border-white/15 dark:text-slate-200">
+            Reset
+          </button>
+        </div>
+        <div className="grid grid-cols-[1fr_1.25fr] gap-2">
+          <button type="button" onClick={revealed ? scramblePuzzle : scramblePuzzle} aria-label="Scramble Rubik's Cube puzzle" className="min-h-10 px-2 text-left font-mono text-xs uppercase tracking-[0.15em] text-slate-500 transition hover:text-accent dark:text-slate-400">
+            {revealed ? "Play Again" : "Scramble"}
+          </button>
+          <button type="button" onClick={() => revealPhoto(false)} aria-label="Reveal profile photo" className="min-h-10 border border-accent/35 bg-accent/10 px-3 text-right font-mono text-xs font-semibold uppercase tracking-[0.15em] text-accent transition hover:bg-accent hover:text-white dark:border-teal-300/35 dark:bg-teal-300/10 dark:text-teal-300 dark:hover:bg-teal-300 dark:hover:text-ink">
+            Reveal Photo
+          </button>
+        </div>
+        <button type="button" onClick={() => setHelpOpen((value) => !value)} aria-expanded={helpOpen} className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-slate-500 transition hover:text-accent dark:text-slate-400">
           Help
         </button>
       </div>
 
       {helpOpen ? (
-        <p className="mt-3 max-w-sm font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-slate-500 dark:text-slate-400">
-          Drag a row left or right. Drag a column up or down. Use Change Face to inspect another side.
-        </p>
+        <div className="mt-3 border border-ink/10 bg-white/45 p-3 font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
+          <p>Drag a row left or right. Drag a column up or down. Use Change Face to inspect another side.</p>
+          <p className="mt-2 text-accent dark:text-teal-300">{solutionTurns.length} helpful moves remain on the suggested path.</p>
+        </div>
       ) : null}
       {hint ? (
         <p className="mt-3 max-w-sm font-mono text-[0.68rem] uppercase leading-5 tracking-[0.12em] text-accent dark:text-teal-300" role="status">

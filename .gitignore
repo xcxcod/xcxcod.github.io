@@ -8,3 +8,4 @@ out
 node_modules
 *.log
 tsconfig.tsbuildinfo
+private-assets/
