@@ -34,8 +34,17 @@ export function usePublicPortfolio(): PortfolioState {
 
         if (!mounted) return;
 
+        const profileData = profileSnapshot.exists() ? ({ ...fallbackProfile, ...profileSnapshot.data() } as Profile) : fallbackProfile;
+        const resolvedProfile = {
+          ...profileData,
+          location: profileData.location?.trim() || fallbackProfile.location,
+          university: profileData.university?.trim() || fallbackProfile.university,
+          study: profileData.study?.trim() || fallbackProfile.study,
+          profileImageUrl: profileData.profileImageUrl?.trim() || fallbackProfile.profileImageUrl
+        };
+
         setState({
-          profile: profileSnapshot.exists() ? ({ ...fallbackProfile, ...profileSnapshot.data() } as Profile) : fallbackProfile,
+          profile: resolvedProfile,
           projects: projectsSnapshot.empty
             ? fallbackProjects.filter((project) => project.published)
             : projectsSnapshot.docs

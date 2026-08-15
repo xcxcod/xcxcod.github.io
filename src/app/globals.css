@@ -75,6 +75,43 @@ body {
   }
 }
 
+@keyframes intro-scan {
+  0% {
+    transform: translateY(-44vh);
+    opacity: 0;
+  }
+  16% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(42vh);
+    opacity: 0;
+  }
+}
+
+@keyframes intro-progress {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes intro-status {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 ::selection {
   background: rgba(29, 111, 143, 0.18);
 }

@@ -22,6 +22,11 @@ export function Navbar({ profile }: { profile: Profile }) {
     document.documentElement.classList.toggle("dark", next);
   }
 
+  function replayIntro() {
+    window.dispatchEvent(new Event("portfolio:replay-intro"));
+    setOpen(false);
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-ink/10 bg-[#f7f5ef]/90 backdrop-blur dark:border-white/10 dark:bg-slate-950/90">
       <nav className="section-shell flex items-center justify-between py-4" aria-label="Main navigation">
@@ -45,6 +50,9 @@ export function Navbar({ profile }: { profile: Profile }) {
           <Link href="/resume" className="ml-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-600 transition hover:text-accent dark:text-slate-300">
             Resume
           </Link>
+          <button type="button" onClick={replayIntro} className="font-mono text-xs uppercase tracking-[0.18em] text-slate-600 transition hover:text-accent dark:text-slate-300">
+            Replay Intro
+          </button>
           <button type="button" onClick={toggleTheme} className="p-2 text-slate-600 transition hover:text-accent dark:text-slate-300" aria-label="Toggle theme">
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -60,6 +68,9 @@ export function Navbar({ profile }: { profile: Profile }) {
               {link.label}
             </Link>
           ))}
+          <button type="button" onClick={replayIntro} className="px-2 py-3 text-left font-mono text-sm uppercase tracking-[0.18em] text-slate-700 hover:text-accent dark:text-slate-200">
+            Replay Intro
+          </button>
         </div>
       </div>
     </header>

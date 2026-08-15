@@ -6,7 +6,7 @@ import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
 export default function AboutPage() {
   const { profile } = usePublicPortfolio();
   const sections = [
-    ["Current university studies", profile.currentStudies],
+    ["Current university studies", `${profile.currentStudies} Based in ${profile.location}, my current focus is building practical, security-aware technology skills while studying at ${profile.university}.`],
     ["Technical interests", profile.technicalInterests.join(", ")],
     ["Career interests", profile.careerInterests.join(", ")],
     ["Current learning areas", profile.currentLearning.join(", ")],

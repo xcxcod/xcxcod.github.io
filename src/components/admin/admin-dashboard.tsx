@@ -244,6 +244,9 @@ function ProfileAdmin() {
       intro: String(formData.get("intro")),
       biography: String(formData.get("biography")),
       currentStudies: String(formData.get("currentStudies")),
+      location: String(formData.get("location")),
+      university: String(formData.get("university")),
+      study: String(formData.get("study")),
       githubUrl: String(formData.get("githubUrl")),
       linkedinUrl: String(formData.get("linkedinUrl")),
       profileImageUrl: String(formData.get("profileImageUrl")),
@@ -259,6 +262,9 @@ function ProfileAdmin() {
       <FormTextarea label="Intro" name="intro" defaultValue={fallbackProfile.intro} />
       <FormTextarea label="Biography" name="biography" defaultValue={fallbackProfile.biography} />
       <FormTextarea label="Current studies" name="currentStudies" defaultValue={fallbackProfile.currentStudies} />
+      <FormInput label="Location" name="location" defaultValue={fallbackProfile.location} />
+      <FormInput label="University" name="university" defaultValue={fallbackProfile.university} />
+      <FormInput label="Study" name="study" defaultValue={fallbackProfile.study} />
       <FormInput label="GitHub URL" name="githubUrl" defaultValue={fallbackProfile.githubUrl} />
       <FormInput label="LinkedIn URL" name="linkedinUrl" defaultValue={fallbackProfile.linkedinUrl} />
       <FormInput label="Profile image URL" name="profileImageUrl" defaultValue={fallbackProfile.profileImageUrl} />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
+import { IntroOverlay } from "@/components/intro/intro-overlay";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { profile } from "@/lib/sample-data";
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar profile={profile} />
         <main>{children}</main>
         <Footer profile={profile} />
+        <IntroOverlay />
       </body>
     </html>
   );

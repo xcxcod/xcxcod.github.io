@@ -16,6 +16,9 @@ export interface Profile {
   careerInterests: string[];
   currentLearning: string[];
   professionalGoals: string;
+  location: string;
+  university: string;
+  study: string;
   githubUrl: string;
   linkedinUrl: string;
   profileImageUrl?: string;

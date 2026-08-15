@@ -4,19 +4,22 @@ export const profile: Profile = {
   name: "Dani Adonai",
   headline: "Information Technology student building across software, cloud and cybersecurity",
   intro:
-    "An early-career IT professional building practical experience across software development, cybersecurity, cloud computing, and backend engineering.",
+    "An Information Technology student building practical experience across software development, cybersecurity, cloud computing and backend systems.",
   biography:
-    "I am an Information Technology student developing a foundation in software engineering, databases, networking, security, and cloud technologies. This portfolio is designed to grow with my academic and personal projects.",
+    "I am studying Information Technology at RMIT University in Melbourne, Australia, while developing a foundation in software engineering, databases, networking, security, and cloud technologies. This portfolio is designed to grow with my academic and personal projects.",
   currentStudies:
-    "Currently studying Information Technology at university, with coursework and self-directed learning across programming, databases, systems, and security.",
+    "Currently studying Information Technology at RMIT University, with coursework and self-directed learning across programming, databases, systems, and security.",
   technicalInterests: ["Software Development", "Cybersecurity", "Cloud Computing", "Backend Development"],
   careerInterests: ["Graduate technology roles", "Software engineering internships", "Security-aware backend development"],
   currentLearning: ["Next.js and TypeScript", "Firebase", "Cloud deployment workflows", "Secure application design"],
   professionalGoals:
     "To keep building practical projects, contribute to professional teams, and develop into a dependable technology practitioner with strong engineering habits.",
+  location: "Melbourne, Australia",
+  university: "RMIT University",
+  study: "Information Technology",
   githubUrl: "YOUR_GITHUB_URL",
   linkedinUrl: "YOUR_LINKEDIN_URL",
-  profileImageUrl: ""
+  profileImageUrl: "/images/profile.png"
 };
 
 export const projects: Project[] = [
