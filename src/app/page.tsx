@@ -1,11 +1,14 @@
+"use client";
+
 import { ArrowRight, Github, Linkedin } from "lucide-react";
 import { LinkButton } from "@/components/ui/button";
 import { ProjectCard } from "@/components/projects/project-card";
 import { SkillGroup } from "@/components/skills/skill-group";
-import { getProfile, getProjects, getSkills } from "@/services/portfolio-service";
+import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
 
-export default async function HomePage() {
-  const [profile, featuredProjects, skills] = await Promise.all([getProfile(), getProjects({ featuredOnly: true }), getSkills()]);
+export default function HomePage() {
+  const { profile, projects, skills } = usePublicPortfolio();
+  const featuredProjects = projects.filter((project) => project.featured);
 
   return (
     <>

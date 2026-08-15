@@ -1,9 +1,11 @@
+"use client";
+
 import { SkillGroup } from "@/components/skills/skill-group";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { getSkills } from "@/services/portfolio-service";
+import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
 
-export default async function SkillsPage() {
-  const skills = await getSkills();
+export default function SkillsPage() {
+  const { skills } = usePublicPortfolio();
 
   return (
     <section className="section-shell py-16 sm:py-24">

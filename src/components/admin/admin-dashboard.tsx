@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from "firebase/auth";
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getCountFromServer, getDocs, orderBy, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
 import { BarChart3, Inbox, Lock, LogOut, Save, Trash2 } from "lucide-react";
 import { auth, db } from "@/lib/firebase/client";
 import { profile as fallbackProfile, skillGroups as fallbackSkills } from "@/lib/sample-data";
@@ -83,28 +83,43 @@ function AdminWorkspace({ user }: { user: User }) {
         ))}
       </div>
       <div className="mt-8">
-        {tab === "dashboard" ? <SummaryPanel user={user} /> : null}
+        {tab === "dashboard" ? <SummaryPanel /> : null}
         {tab === "projects" ? <ProjectsAdmin /> : null}
         {tab === "profile" ? <ProfileAdmin /> : null}
         {tab === "skills" ? <SkillsAdmin /> : null}
-        {tab === "resume" ? <ResumeAdmin user={user} /> : null}
-        {tab === "contact" ? <ContactAdmin user={user} /> : null}
+        {tab === "resume" ? <ResumeAdmin /> : null}
+        {tab === "contact" ? <ContactAdmin /> : null}
       </div>
     </section>
   );
 }
 
-function SummaryPanel({ user }: { user: User }) {
+function SummaryPanel() {
   const [summary, setSummary] = useState<Summary | null>(null);
 
   useEffect(() => {
-    user.getIdToken().then((token) =>
-      fetch("/api/admin/summary", { headers: { authorization: `Bearer ${token}` } })
-        .then((response) => response.json())
-        .then(setSummary)
-        .catch(() => setSummary({ projects: 0, featuredProjects: 0, pendingResumeRequests: 0, contactMessages: 0 }))
-    );
-  }, [user]);
+    async function load() {
+      try {
+        const [projects, featuredProjects, pendingResumeRequests, contactMessages] = await Promise.all([
+          getCountFromServer(collection(db, "projects")),
+          getCountFromServer(query(collection(db, "projects"), where("featured", "==", true))),
+          getCountFromServer(query(collection(db, "resumeRequests"), where("status", "==", "Pending"))),
+          getCountFromServer(query(collection(db, "contactMessages"), where("archived", "==", false)))
+        ]);
+
+        setSummary({
+          projects: projects.data().count,
+          featuredProjects: featuredProjects.data().count,
+          pendingResumeRequests: pendingResumeRequests.data().count,
+          contactMessages: contactMessages.data().count
+        });
+      } catch {
+        setSummary({ projects: 0, featuredProjects: 0, pendingResumeRequests: 0, contactMessages: 0 });
+      }
+    }
+
+    load();
+  }, []);
 
   if (!summary) return <LoadingState label="Loading dashboard" />;
   return (
@@ -267,17 +282,17 @@ function SkillsAdmin() {
   );
 }
 
-function ResumeAdmin({ user }: { user: User }) {
-  return <CollectionManager<ResumeRequest> user={user} collectionName="resumeRequests" title="Resume requests" actionEndpoint="/api/admin/resume-requests" />;
+function ResumeAdmin() {
+  return <CollectionManager<ResumeRequest> collectionName="resumeRequests" title="Resume requests" />;
 }
 
-function ContactAdmin({ user }: { user: User }) {
-  return <CollectionManager<ContactMessage> user={user} collectionName="contactMessages" title="Contact messages" actionEndpoint="/api/admin/contact-messages" />;
+function ContactAdmin() {
+  return <CollectionManager<ContactMessage> collectionName="contactMessages" title="Contact messages" />;
 }
 
-function CollectionManager<T extends { id?: string; status?: string; email?: string; subject?: string; fullName?: string; name?: string; message?: string }>({ user, collectionName, title, actionEndpoint }: { user: User; collectionName: string; title: string; actionEndpoint: string }) {
+function CollectionManager<T extends { id?: string; status?: string; email?: string; subject?: string; fullName?: string; name?: string; message?: string }>({ collectionName, title }: { collectionName: string; title: string }) {
   const [items, setItems] = useState<T[]>([]);
-  const [accessUrl, setAccessUrl] = useState("");
+  const [message, setMessage] = useState("");
 
   const emptyMessage = useMemo(() => collectionName === "resumeRequests" ? "Resume requests will appear here." : "Contact messages will appear here.", [collectionName]);
 
@@ -291,21 +306,21 @@ function CollectionManager<T extends { id?: string; status?: string; email?: str
   }, [load]);
 
   async function patch(id: string, body: Record<string, unknown>) {
-    const token = await user.getIdToken();
-    const response = await fetch(`${actionEndpoint}/${id}`, {
-      method: "PATCH",
-      headers: { "content-type": "application/json", authorization: `Bearer ${token}` },
-      body: JSON.stringify(body)
+    await updateDoc(doc(db, collectionName, id), {
+      ...body,
+      updatedAt: serverTimestamp()
     });
-    const data = await response.json();
-    if (data.accessUrl) setAccessUrl(data.accessUrl);
     await load();
+  }
+
+  async function approveUnavailable() {
+    setMessage("Secure resume approval links require a trusted server runtime and are not available on GitHub Pages.");
   }
 
   return (
     <div className="grid gap-4">
       <h2 className="text-xl font-semibold">{title}</h2>
-      {accessUrl ? <p className="rounded-md border border-teal-200 bg-teal-50 p-3 text-sm text-evergreen dark:border-teal-900 dark:bg-teal-950 dark:text-teal-200">Protected URL: {accessUrl}</p> : null}
+      {message ? <p className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-200">{message}</p> : null}
       {items.length ? items.map((item) => (
         <article key={item.id} className="rounded-md border border-line bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
           <div className="flex items-start justify-between gap-4">
@@ -318,9 +333,9 @@ function CollectionManager<T extends { id?: string; status?: string; email?: str
           </div>
           {collectionName === "resumeRequests" ? (
             <div className="mt-4 flex flex-wrap gap-2">
-              <Button onClick={() => patch(item.id!, { action: "approve" })}>Approve</Button>
-              <Button variant="secondary" onClick={() => patch(item.id!, { action: "reject" })}>Reject</Button>
-              <Button variant="secondary" onClick={() => patch(item.id!, { action: "revoke" })}>Revoke</Button>
+              <Button onClick={approveUnavailable}>Approve</Button>
+              <Button variant="secondary" onClick={() => patch(item.id!, { status: "Rejected" })}>Reject</Button>
+              <Button variant="secondary" onClick={() => patch(item.id!, { status: "Expired" })}>Revoke</Button>
             </div>
           ) : (
             <div className="mt-4 flex flex-wrap gap-2">

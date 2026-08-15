@@ -1,10 +1,12 @@
+"use client";
+
 import { ProjectCard } from "@/components/projects/project-card";
 import { EmptyState } from "@/components/ui/states";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { getProjects } from "@/services/portfolio-service";
+import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
 
-export default async function ProjectsPage() {
-  const projects = await getProjects();
+export default function ProjectsPage() {
+  const { projects } = usePublicPortfolio();
 
   return (
     <section className="section-shell py-16 sm:py-24">

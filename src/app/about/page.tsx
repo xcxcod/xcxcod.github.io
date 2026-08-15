@@ -1,8 +1,10 @@
-import { SectionHeading } from "@/components/ui/section-heading";
-import { getProfile } from "@/services/portfolio-service";
+"use client";
 
-export default async function AboutPage() {
-  const profile = await getProfile();
+import { SectionHeading } from "@/components/ui/section-heading";
+import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
+
+export default function AboutPage() {
+  const { profile } = usePublicPortfolio();
   const sections = [
     ["Current university studies", profile.currentStudies],
     ["Technical interests", profile.technicalInterests.join(", ")],

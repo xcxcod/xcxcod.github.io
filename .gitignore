@@ -4,6 +4,7 @@
 .next
 coverage
 dist
+out
 node_modules
 *.log
 tsconfig.tsbuildinfo

@@ -33,7 +33,8 @@ service cloud.firestore {
       allow create: if hasOnly([
         "name", "email", "organisation", "subject", "message",
         "read", "archived", "createdAt", "updatedAt"
-      ]);
+      ]) && request.resource.data.read == false
+        && request.resource.data.archived == false;
       allow read, update, delete: if isAdmin();
     }
 

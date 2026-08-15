@@ -9,17 +9,20 @@ A professional full-stack portfolio for an Information Technology student. It pr
 - Tailwind CSS
 - Firebase Authentication
 - Firestore
-- Firebase Admin SDK for trusted server workflows
+- Static export for GitHub Pages
+- Firebase Admin SDK files retained only for trusted server deployments
 - Vitest and Testing Library
-- Vercel deployment
+- GitHub Pages deployment through GitHub Actions
 
 ## Architecture
 
-Public content is read from Firestore when Firebase Admin variables are configured, with safe placeholder content used for local first-run builds. Public forms use server actions with Zod validation before writing to Firestore. Admin pages use Firebase Auth in the browser, while sensitive operations are checked again on the server with ID token verification.
+The GitHub Pages build is a static Next.js export. Public content starts from safe placeholder data, then hydrates from Firestore in the browser with the Firebase web SDK. Public forms validate with Zod in the browser before writing to Firestore. Admin pages use Firebase Auth and Firestore Security Rules for authorization.
+
+Trusted server workflows such as secure resume token generation cannot run on GitHub Pages. Use Vercel, Firebase Functions, or another server runtime for protected resume download links.
 
 Core folders:
 
-- `src/app`: routes, layouts, server actions, and admin APIs
+- `src/app`: routes and layouts
 - `src/components`: reusable UI, layout, forms, projects, skills, and admin panels
 - `src/lib`: Firebase setup, validation, token utilities, sample content, helpers
 - `src/services`: Firestore and resume workflow logic
@@ -45,8 +48,9 @@ Public Firebase web config:
 - `NEXT_PUBLIC_FIREBASE_APP_ID`
 - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
 - `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_BASE_PATH`
 
-Server-only values:
+Server-only values, not required for GitHub Pages:
 
 - `FIREBASE_CLIENT_EMAIL`
 - `FIREBASE_PRIVATE_KEY`
@@ -72,7 +76,7 @@ Enable email/password Authentication, create Firestore, deploy `firestore.rules`
 
 ## Admin Setup
 
-The `/admin` route requires Firebase Auth. Firestore writes and admin API calls require an `admin: true` custom claim. `ADMIN_EMAILS` is available as a server-side fallback for API verification, but Firestore rules should rely on the custom claim.
+The `/admin` route requires Firebase Auth. Firestore writes require an `admin: true` custom claim enforced by Firestore rules. A static deployment must not rely on hiding frontend routes for security.
 
 ## Testing
 
@@ -86,8 +90,11 @@ npm run build
 ## Security Notes
 
 - Firebase Admin credentials are server-only.
-- Resume links use random tokens and store only token hashes.
-- Resume tokens expire and can be revoked.
-- Forms include server-side validation and a hidden honeypot field.
+- Secure resume approval links require a trusted server runtime and are disabled in the GitHub Pages build.
+- Forms include Zod validation and a hidden honeypot field.
 - `.env` files are ignored.
 - The resume PDF is intentionally not public in the first version.
+
+## GitHub Pages
+
+See [GITHUB_PAGES.md](./GITHUB_PAGES.md) for setup steps, required repository variables, and static hosting limitations.
