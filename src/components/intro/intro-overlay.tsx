@@ -225,42 +225,38 @@ export function IntroOverlay() {
     context.globalCompositeOperation = "source-over";
     context.clearRect(0, 0, rect.width, rect.height);
 
-    const gradient = context.createLinearGradient(0, 0, rect.width, rect.height);
-    gradient.addColorStop(0, "#fbfaf5");
-    gradient.addColorStop(0.42, "#eceae2");
-    gradient.addColorStop(0.68, "#f7f5ef");
-    gradient.addColorStop(1, "#dfe9ec");
-    context.fillStyle = gradient;
+    context.fillStyle = "#f7f5ef";
     context.fillRect(0, 0, rect.width, rect.height);
 
-    context.strokeStyle = "rgba(23, 32, 51, 0.055)";
+    context.strokeStyle = "rgba(23, 32, 51, 0.045)";
     context.lineWidth = 1;
-    for (let x = 0; x < rect.width; x += 46) {
+    for (let x = 0; x < rect.width; x += 72) {
       context.beginPath();
       context.moveTo(x, 0);
       context.lineTo(x, rect.height);
       context.stroke();
     }
-    for (let y = 0; y < rect.height; y += 46) {
+    context.strokeStyle = "rgba(23, 32, 51, 0.035)";
+    for (let y = 0; y < rect.height; y += 72) {
       context.beginPath();
       context.moveTo(0, y);
       context.lineTo(rect.width, y);
       context.stroke();
     }
 
-    context.globalAlpha = 0.11;
+    context.globalAlpha = 0.075;
     for (let i = 0; i < 380; i += 1) {
       const x = Math.random() * rect.width;
       const y = Math.random() * rect.height;
-      const radius = Math.random() * 1.8 + 0.25;
+      const radius = Math.random() * 1.35 + 0.2;
       context.fillStyle = i % 3 === 0 ? "#1d6f8f" : "#172033";
       context.beginPath();
       context.arc(x, y, radius, 0, Math.PI * 2);
       context.fill();
     }
 
-    context.globalAlpha = 0.18;
-    context.strokeStyle = "rgba(29, 111, 143, 0.35)";
+    context.globalAlpha = 0.14;
+    context.strokeStyle = "rgba(29, 111, 143, 0.28)";
     context.setLineDash([7, 12]);
     context.strokeRect(18, 18, rect.width - 36, rect.height - 36);
     context.setLineDash([]);
@@ -444,20 +440,20 @@ export function IntroOverlay() {
       role="presentation"
       aria-label="Portfolio scratch intro"
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_46%,rgba(29,111,143,0.14),transparent_34%),linear-gradient(90deg,rgba(23,32,51,0.035)_1px,transparent_1px),linear-gradient(180deg,rgba(23,32,51,0.028)_1px,transparent_1px)] bg-[size:auto,72px_72px,72px_72px]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(23,32,51,0.045)_1px,transparent_1px),linear-gradient(180deg,rgba(23,32,51,0.035)_1px,transparent_1px)] bg-[size:72px_72px]" />
 
       <div className="flex h-[100dvh] items-center justify-center overflow-hidden px-3 py-3 sm:px-5 sm:py-5 lg:px-6 lg:py-6">
         <div
           className={cn(
-            "relative isolate h-[calc(100dvh-1.5rem)] w-full max-w-[min(64rem,calc(100vw-1.5rem))] overflow-hidden border border-ink/18 bg-[#f7f5ef] shadow-[10px_10px_0_rgba(23,32,51,0.08),0_20px_70px_rgba(23,32,51,0.14)] sm:h-[min(82dvh,42rem)] sm:max-w-[min(64rem,calc(100vw-2.5rem))] sm:shadow-[18px_18px_0_rgba(23,32,51,0.08),0_30px_90px_rgba(23,32,51,0.14)] landscape:h-[calc(100dvh-1rem)] landscape:max-w-[min(62rem,calc(100vw-1rem))] md:landscape:h-[min(84dvh,42rem)]",
+            "relative isolate h-[calc(100dvh-1.5rem)] w-full max-w-[min(64rem,calc(100vw-1.5rem))] overflow-hidden border border-ink/15 bg-[#f7f5ef] shadow-[8px_8px_0_rgba(23,32,51,0.055),0_18px_42px_rgba(23,32,51,0.08)] sm:h-[min(82dvh,42rem)] sm:max-w-[min(64rem,calc(100vw-2.5rem))] sm:shadow-[10px_10px_0_rgba(23,32,51,0.055),0_20px_48px_rgba(23,32,51,0.08)] landscape:h-[calc(100dvh-1rem)] landscape:max-w-[min(62rem,calc(100vw-1rem))] md:landscape:h-[min(84dvh,42rem)]",
             exiting && "scale-[1.015] opacity-0 transition duration-500 ease-out"
           )}
         >
-          <div className="pointer-events-none absolute inset-0 z-0 border-[8px] border-[#f7f5ef]/88 sm:border-[14px]" />
-          <div className="pointer-events-none absolute left-4 top-4 z-30 h-6 w-6 border-l border-t border-ink/30 sm:left-6 sm:top-6 sm:h-9 sm:w-9" />
-          <div className="pointer-events-none absolute right-4 top-4 z-30 h-6 w-6 border-r border-t border-ink/30 sm:right-6 sm:top-6 sm:h-9 sm:w-9" />
-          <div className="pointer-events-none absolute bottom-4 left-4 z-30 h-6 w-6 border-b border-l border-ink/30 sm:bottom-6 sm:left-6 sm:h-9 sm:w-9" />
-          <div className="pointer-events-none absolute bottom-4 right-4 z-30 h-6 w-6 border-b border-r border-ink/30 sm:bottom-6 sm:right-6 sm:h-9 sm:w-9" />
+          <div className="pointer-events-none absolute inset-0 z-0 border-[8px] border-[#f7f5ef]/78 sm:border-[14px]" />
+          <div className="pointer-events-none absolute left-4 top-4 z-30 h-6 w-6 border-l border-t border-ink/25 sm:left-6 sm:top-6 sm:h-9 sm:w-9" />
+          <div className="pointer-events-none absolute right-4 top-4 z-30 h-6 w-6 border-r border-t border-ink/25 sm:right-6 sm:top-6 sm:h-9 sm:w-9" />
+          <div className="pointer-events-none absolute bottom-4 left-4 z-30 h-6 w-6 border-b border-l border-ink/25 sm:bottom-6 sm:left-6 sm:h-9 sm:w-9" />
+          <div className="pointer-events-none absolute bottom-4 right-4 z-30 h-6 w-6 border-b border-r border-ink/25 sm:bottom-6 sm:right-6 sm:h-9 sm:w-9" />
 
           {!reducedMotion ? (
             <>
@@ -541,7 +537,7 @@ export function IntroOverlay() {
                 </p>
               </div>
 
-              <div className="hidden gap-2 border-l border-ink/12 pl-4 font-mono text-[0.56rem] uppercase leading-4 tracking-[0.14em] text-slate-500 min-[430px]:grid sm:gap-3 sm:pl-5 sm:text-[0.66rem] sm:leading-5 sm:tracking-[0.16em]">
+              <div className="hidden gap-2 border-l border-ink/10 pl-4 font-mono text-[0.56rem] uppercase leading-4 tracking-[0.14em] text-slate-500 min-[430px]:grid sm:gap-3 sm:pl-5 sm:text-[0.66rem] sm:leading-5 sm:tracking-[0.16em]">
                 <p>01 / Software</p>
                 <p>02 / Cloud</p>
                 <p>03 / Cybersecurity</p>
@@ -565,7 +561,7 @@ export function IntroOverlay() {
           {!reducedMotion && cursorPoint ? (
             <div
               className={cn(
-                "pointer-events-none absolute z-40 hidden h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-ink/35 bg-[#f7f5ef]/20 font-mono text-[0.44rem] uppercase tracking-[0.12em] text-ink/70 backdrop-blur-[1px] transition-transform duration-150 sm:grid sm:h-20 sm:w-20 sm:text-[0.48rem] sm:tracking-[0.14em]",
+                "pointer-events-none absolute z-40 hidden h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-ink/25 bg-[#f7f5ef]/30 font-mono text-[0.44rem] uppercase tracking-[0.12em] text-ink/70 backdrop-blur-[1px] transition-transform duration-150 sm:grid sm:h-20 sm:w-20 sm:text-[0.48rem] sm:tracking-[0.14em]",
                 isPressing && "scale-75 border-accent/60 bg-accent/10 text-accent"
               )}
               style={{ left: cursorPoint.x, top: cursorPoint.y }}
@@ -577,7 +573,7 @@ export function IntroOverlay() {
           <button
             type="button"
             onClick={() => finishIntro(220)}
-            className="absolute inset-x-4 bottom-4 z-40 min-h-12 border border-ink/18 bg-[#f7f5ef]/92 px-4 py-3 text-center font-mono text-[0.58rem] uppercase tracking-[0.14em] text-ink shadow-sm backdrop-blur transition hover:border-accent hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-4 focus:ring-offset-[#f7f5ef] sm:inset-x-auto sm:bottom-10 sm:right-10 sm:min-h-0 sm:text-[0.62rem] sm:tracking-[0.18em]"
+            className="absolute inset-x-4 bottom-4 z-40 inline-flex min-h-12 items-center justify-center rounded-sm border border-ink/20 bg-transparent px-5 py-3 text-center text-sm font-semibold uppercase tracking-[0.16em] text-ink backdrop-blur transition hover:border-accent hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#f7f5ef] sm:inset-x-auto sm:bottom-10 sm:right-10 sm:min-h-11"
           >
             Enter without scratching
           </button>
@@ -585,7 +581,7 @@ export function IntroOverlay() {
             <button
               type="button"
               onClick={() => setSoundEnabled((value) => !value)}
-              className="absolute bottom-[4.75rem] right-4 z-40 min-h-10 border border-ink/12 bg-[#f7f5ef]/82 px-3 py-2 font-mono text-[0.54rem] uppercase tracking-[0.14em] text-slate-600 backdrop-blur transition hover:border-accent hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-4 focus:ring-offset-[#f7f5ef] sm:bottom-24 sm:right-10 sm:text-[0.58rem] sm:tracking-[0.16em]"
+              className="absolute bottom-[4.75rem] right-4 z-40 min-h-10 border border-ink/12 bg-[#f7f5ef]/82 px-3 py-2 font-mono text-[0.54rem] uppercase tracking-[0.14em] text-slate-600 backdrop-blur transition hover:border-accent hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#f7f5ef] sm:bottom-24 sm:right-10 sm:text-[0.58rem] sm:tracking-[0.16em]"
               aria-pressed={soundEnabled}
             >
               Sound: <span className="text-ink">{soundEnabled ? "On" : "Off"}</span>
