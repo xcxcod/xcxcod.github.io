@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.technology-link { align-items: center; }
+.technology-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.technology-link:focus-visible { outline: 2px solid var(--editorial-accent); outline-offset: 2px; }
+
 .skyline-work > .signal-trace {
   background: linear-gradient(90deg, transparent, var(--editorial-accent) 45% 55%, transparent);
 }
@@ -311,6 +315,55 @@
 }
 
 .signal-hero-copy { min-width: 0; }
+.signal-hero { padding-bottom: 5.25rem; }
+
+.hero-rover {
+  --rover-width: 5.25rem;
+  position: absolute;
+  inset: auto 0 1.15rem;
+  height: 2.6rem;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--editorial-accent);
+}
+
+.hero-rover-travel {
+  width: calc(100% - var(--rover-width));
+  animation: hero-rover-patrol 56s linear infinite;
+}
+
+.hero-rover-body { display: block; width: var(--rover-width); animation: hero-rover-turn 56s steps(1, end) infinite; }
+.hero-rover-wheel { transform-box: fill-box; transform-origin: center; animation: hero-rover-roll 1.8s linear infinite; }
+.hero-rover-arm { transform-origin: 73px 32px; animation: hero-rover-reach 3.8s ease-in-out infinite; }
+.hero-rover-eye { transform-origin: 57px 13px; animation: hero-rover-reach 4.7s ease-in-out -1.2s infinite alternate; }
+.hero-rover-lens { animation: hero-rover-scan 2.6s ease-in-out infinite alternate; }
+
+@keyframes hero-rover-patrol {
+  0%, 3%, 100% { transform: translateX(0); }
+  48%, 53% { transform: translateX(100%); }
+  97% { transform: translateX(0); }
+}
+
+@keyframes hero-rover-turn {
+  0%, 97%, 100% { transform: scaleX(1); }
+  51% { transform: scaleX(-1); }
+}
+
+@keyframes hero-rover-roll { to { transform: rotate(360deg); } }
+@keyframes hero-rover-reach { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(10deg); } }
+@keyframes hero-rover-scan { from { transform: translateX(-4px); } to { transform: translateX(3px); } }
+
+.signal-experience[data-motion-paused="true"] .hero-rover * { animation-play-state: paused; }
+
+@media (max-width: 767px) {
+  .hero-rover-travel, .hero-rover-body { animation-duration: 32s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rover { left: 1rem; }
+  .hero-rover * { animation: none !important; }
+}
+
 .signal-hero-description { color: var(--hero-muted); }
 .hero-stack { min-width: 0; border-block: 1px solid var(--hero-line); padding-block: 1rem; }
 .hero-stack ul { margin-top: 1rem; }
@@ -344,7 +397,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.signal-experience[data-motion-paused="true"] *,
+.signal-experience[data-motion-paused="true"] *:not(.hero-rover *),
 .signal-experience[data-motion-paused="true"] *::after { animation: none !important; transition: none !important; }
 
 @media (prefers-reduced-motion: reduce) {

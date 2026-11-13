@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { ComponentType, SVGProps } from "react";
-import { Boxes, Code2, Database, Network, Search } from "lucide-react";
+import { ArrowUpRight, Boxes, Code2, Database, Network, Search } from "lucide-react";
 import { DiMsqlServer } from "react-icons/di";
 import { FaAws, FaJava, FaLinux } from "react-icons/fa";
 import {
@@ -52,9 +52,50 @@ const logoMap: Record<string, IconComponent> = {
   "intellij idea": SiIntellijidea
 };
 
-export function TechnologyLogo({ skill, size = 15 }: { skill: string; size?: number }) {
+const technologySites = new Map([
+  ["python", "https://www.python.org/"],
+  ["java", "https://dev.java/"],
+  ["javascript", "https://developer.mozilla.org/en-US/docs/Web/JavaScript"],
+  ["typescript", "https://www.typescriptlang.org/"],
+  ["php", "https://www.php.net/"],
+  ["sql", "https://learn.microsoft.com/en-us/sql/t-sql/language-reference"],
+  ["react", "https://react.dev/"],
+  ["next.js", "https://nextjs.org/"],
+  ["firebase", "https://firebase.google.com/"],
+  ["bootstrap", "https://getbootstrap.com/"],
+  ["tailwind css", "https://tailwindcss.com/"],
+  ["microsoft sql server", "https://learn.microsoft.com/en-us/sql/sql-server/"],
+  ["mysql", "https://www.mysql.com/"],
+  ["firestore", "https://firebase.google.com/docs/firestore"],
+  ["aws", "https://aws.amazon.com/"],
+  ["docker", "https://www.docker.com/"],
+  ["linux", "https://www.kernel.org/"],
+  ["networking", "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-computer-networking.html"],
+  ["virtualisation", "https://www.ibm.com/think/topics/virtualization"],
+  ["git", "https://git-scm.com/"],
+  ["github", "https://github.com/"],
+  ["visual studio code", "https://code.visualstudio.com/"],
+  ["intellij idea", "https://www.jetbrains.com/idea/"]
+]);
+
+function TechnologyLogo({ skill, size = 15 }: { skill: string; size?: number }) {
   const Icon = logoMap[skill.trim().toLowerCase()] ?? Code2;
   return <Icon size={size} aria-hidden="true" />;
+}
+
+export function TechnologyLink({ skill, tile = false }: { skill: string; tile?: boolean }) {
+  const officialUrl = technologySites.get(skill.trim().toLowerCase());
+  const href = officialUrl ?? `https://www.google.com/search?q=${encodeURIComponent(`${skill} official documentation`)}`;
+
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer"
+      className={`technology-link ${tile ? "flex min-h-14 gap-3 border border-current/15 bg-[var(--editorial-paper)] px-3 py-2 text-sm font-semibold" : "signal-tag inline-flex gap-2"}`}>
+      <span className={tile ? "grid size-8 shrink-0 place-items-center text-[var(--editorial-accent)]" : "shrink-0"}><TechnologyLogo skill={skill} size={tile ? 21 : 15} /></span>
+      <span className="min-w-0 break-words">{skill}</span>
+      <ArrowUpRight size={14} className="ml-auto shrink-0" aria-hidden />
+      <span className="sr-only">{officialUrl ? " (opens in a new tab)" : " (searches documentation in a new tab)"}</span>
+    </a>
+  );
 }
 
 export function ToolkitSection({ skills }: { skills: SkillGroup[] }) {
@@ -94,10 +135,7 @@ export function ToolkitSection({ skills }: { skills: SkillGroup[] }) {
           <h2 className="editorial-label pt-2">{group.category}</h2>
           <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,10rem),1fr))] gap-2">
             {group.skills.map((skill) => (
-              <li key={skill} className="flex min-h-14 items-center gap-3 border border-current/15 bg-[var(--editorial-paper)] px-3 py-2 text-sm font-semibold">
-                <span className="grid size-8 shrink-0 place-items-center text-[var(--editorial-accent)]"><TechnologyLogo skill={skill} size={21} /></span>
-                <span className="min-w-0 break-words">{skill}</span>
-              </li>
+              <li key={skill}><TechnologyLink skill={skill} tile /></li>
             ))}
           </ul>
         </section>

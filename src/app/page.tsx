@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowRight, ArrowUpRight, Database, Globe, Layers, Pause, Play } from "lucide-react";
 import { TraceBuild } from "@/components/projects/trace-build";
-import { TechnologyLogo } from "@/components/skills/toolkit-section";
+import { TechnologyLink } from "@/components/skills/toolkit-section";
+import { HeroRover } from "@/components/layout/hero-rover";
 import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
 
 const portfolioStack = [
@@ -64,6 +65,7 @@ export default function HomePage() {
             Explore the build <ArrowUpRight size={16} aria-hidden />
           </Link>
         </figure>
+        <HeroRover />
       </section>
 
       <section id="selected-work" className="skyline-work scroll-mt-24">
@@ -114,7 +116,7 @@ export default function HomePage() {
                 <dt className="editorial-label self-center">{group.category}</dt>
                 <dd>
                   <ul className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => <li key={skill} className="signal-tag inline-flex items-center gap-2"><TechnologyLogo skill={skill} />{skill}</li>)}
+                    {group.skills.map((skill) => <li key={skill}><TechnologyLink skill={skill} /></li>)}
                   </ul>
                 </dd>
               </div>
