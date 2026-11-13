@@ -1,8 +1,8 @@
 import {
   AnimationMixer, Box3, DirectionalLight, Group, HemisphereLight, Mesh, OrthographicCamera,
-  Scene, Vector3, WebGLRenderer
+  Scene, Texture, Vector3, WebGLRenderer
 } from "three";
-import type { Object3D, Texture } from "three";
+import type { Object3D } from "three";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
@@ -65,7 +65,7 @@ function disposeModel(model: Object3D) {
     part.geometry.dispose();
     for (const material of Array.isArray(part.material) ? part.material : [part.material]) {
       for (const value of Object.values(material)) {
-        if (value?.isTexture) (value as Texture).dispose();
+        if (value instanceof Texture) value.dispose();
       }
       material.dispose();
     }
