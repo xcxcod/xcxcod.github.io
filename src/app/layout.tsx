@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className="bg-mist font-sans text-ink antialiased dark:bg-slate-950 dark:text-slate-100">
         <Navbar profile={profile} />
         <main>{children}</main>

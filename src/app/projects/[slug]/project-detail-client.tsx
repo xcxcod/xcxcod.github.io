@@ -70,6 +70,8 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
             <>
               <h2 className="mt-8 text-2xl font-semibold">Deployment trade-off</h2>
               <p className="mt-3 leading-7">GitHub Pages serves the exported Next.js pages as static files. Firebase handles sign-in and Firestore access separately, so the public site can run without a Next.js server.</p>
+              <h2 className="mt-8 text-2xl font-semibold">Content and access</h2>
+              <p className="mt-3 leading-7">Project pages start with bundled content, and the public interface can read published updates from Firestore. Resume requests use a separate form so visitors can ask for access without the site linking to a public PDF.</p>
             </>
           )}
         </div>

@@ -16,7 +16,7 @@ const links = [
 export function Navbar({ profile }: { profile: Profile }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
 
   function toggleTheme() {
     const next = !dark;

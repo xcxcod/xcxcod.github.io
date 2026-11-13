@@ -112,6 +112,11 @@ function getLogo(skill: string) {
   return logoMap[skill.trim().toLowerCase()] ?? fallbackLogo;
 }
 
+export function TechnologyLogo({ skill }: { skill: string }) {
+  const Icon = getLogo(skill).icon;
+  return <Icon size={15} aria-hidden="true" />;
+}
+
 function rotatePoint(x: number, y: number, degrees: number) {
   const radians = (degrees * Math.PI) / 180;
   const cos = Math.cos(radians);
