@@ -251,6 +251,9 @@
 @media (min-width: 1200px) {
   .particle-signoff { min-height: 18rem; }
 }
+
+.signal-trace {
+  height: 1.25rem;
   border-block: 1px solid #9eb6ff45;
   background:
     radial-gradient(circle at 12px 6px, #9eb6ff 0 2px, transparent 3px),
