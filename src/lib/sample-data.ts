@@ -18,8 +18,7 @@ export const profile: Profile = {
   university: "RMIT University",
   study: "Information Technology",
   githubUrl: "YOUR_GITHUB_URL",
-  linkedinUrl: "YOUR_LINKEDIN_URL",
-  profileImageUrl: "/images/profile-photo.jpg"
+  linkedinUrl: "YOUR_LINKEDIN_URL"
 };
 
 export const projects: Project[] = [

@@ -2,7 +2,7 @@
 
 import { Calendar, ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
-import { ProjectVisual } from "@/components/projects/project-visual";
+import { TraceBuild } from "@/components/projects/trace-build";
 import { LinkButton } from "@/components/ui/button";
 import { formatDate } from "@/lib/utils";
 import { usePublicProject } from "@/hooks/use-public-portfolio";
@@ -59,7 +59,7 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
         </aside>
       </div>
 
-      <div className="mt-10"><ProjectVisual project={project} /></div>
+      <div className="mt-10"><TraceBuild project={project} /></div>
 
       <div className="mt-16 grid gap-12 lg:grid-cols-[320px_1fr]">
         <p className="font-mono text-sm text-accent dark:text-teal-300">{"// overview"}</p>

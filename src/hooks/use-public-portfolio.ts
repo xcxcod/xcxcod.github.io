@@ -6,12 +6,6 @@ import { db } from "@/lib/firebase/client";
 import { profile as fallbackProfile, projects as fallbackProjects, skillGroups as fallbackSkills } from "@/lib/sample-data";
 import type { Profile, Project, SkillGroup } from "@/types/portfolio";
 
-const publicProfileImageUrl = "/images/profile-photo.jpg";
-
-function resolveProfileImageUrl() {
-  return publicProfileImageUrl;
-}
-
 type PortfolioState = {
   profile: Profile;
   projects: Project[];
@@ -21,7 +15,7 @@ type PortfolioState = {
 
 export function usePublicPortfolio(): PortfolioState {
   const [state, setState] = useState<PortfolioState>({
-    profile: { ...fallbackProfile, profileImageUrl: resolveProfileImageUrl() },
+    profile: fallbackProfile,
     projects: fallbackProjects.filter((project) => project.published),
     skills: fallbackSkills,
     loading: true
@@ -46,7 +40,7 @@ export function usePublicPortfolio(): PortfolioState {
           location: profileData.location?.trim() || fallbackProfile.location,
           university: profileData.university?.trim() || fallbackProfile.university,
           study: profileData.study?.trim() || fallbackProfile.study,
-          profileImageUrl: resolveProfileImageUrl()
+          profileImageUrl: undefined
         };
 
         setState({

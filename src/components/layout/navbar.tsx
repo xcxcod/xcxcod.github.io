@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 const links = [
   { href: "/projects", label: "Work" },
   { href: "/about", label: "About" },
+  { href: "/skills", label: "Toolkit" },
   { href: "/contact", label: "Contact" }
 ];
 
@@ -66,7 +67,7 @@ export function Navbar({ profile }: { profile: Profile }) {
       </nav>
       <div className={cn("border-t border-ink/10 bg-[#f7f5ef] px-4 py-3 md:hidden dark:border-white/10 dark:bg-slate-950", open ? "block" : "hidden")}>
         <div className="mx-auto grid max-w-6xl gap-2 py-3">
-          {[...links, { href: "/skills", label: "Toolkit" }, { href: "/resume", label: "Request Resume" }].map((link) => (
+          {[...links, { href: "/resume", label: "Request Resume" }].map((link) => (
             <Link key={link.href} href={link.href} className="px-2 py-3 font-mono text-sm uppercase tracking-[0.18em] text-slate-700 hover:text-accent dark:text-slate-200" onClick={() => setOpen(false)}>
               {link.label}
             </Link>

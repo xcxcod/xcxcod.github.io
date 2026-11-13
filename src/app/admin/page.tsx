@@ -5,5 +5,5 @@ const AdminDashboard = dynamic(() => import("@/components/admin/admin-dashboard"
 });
 
 export default function AdminPage() {
-  return <AdminDashboard />;
+  return <div className="editorial"><div className="signal-trace" aria-hidden /><AdminDashboard /></div>;
 }
