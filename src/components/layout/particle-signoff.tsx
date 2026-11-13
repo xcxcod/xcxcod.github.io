@@ -13,6 +13,9 @@ export function ParticleSignoff({ name }: { name: string }) {
     const mask = document.createElement("canvas");
     const ink = mask.getContext("2d", { willReadFrequently: true });
     if (!canvas || !context || !ink) return;
+    const wordmark = canvas.nextElementSibling;
+    if (!wordmark) return;
+    const font = `600 100px ${getComputedStyle(wordmark).fontFamily}`;
 
     const motion = window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
     let dashes: Dash[] = [];
@@ -69,7 +72,6 @@ export function ParticleSignoff({ name }: { name: string }) {
       mask.width = width;
       mask.height = height;
       const text = name.trim().toUpperCase();
-      const font = '600 100px "Chakra Petch", Arial, sans-serif';
       ink.font = font;
       const size = Math.min(height * 0.82, 100 * (width - 16) / Math.max(1, ink.measureText(text).width));
       ink.font = font.replace("100px", `${size}px`);
@@ -106,7 +108,7 @@ export function ParticleSignoff({ name }: { name: string }) {
 
     const observer = new ResizeObserver(rebuild);
     observer.observe(canvas);
-    void document.fonts.load('600 100px "Chakra Petch"').then(rebuild, rebuild);
+    void document.fonts.load(font, name.toUpperCase()).then(rebuild, rebuild);
     canvas.addEventListener("pointermove", move);
     canvas.addEventListener("pointerleave", reset);
     motion.addEventListener("change", reset);

@@ -218,15 +218,8 @@
 .signal-hero-copy { left: max(1rem, calc((100% - 88rem) / 2)); }
 .signal-interests { right: max(1rem, calc((100% - 88rem) / 2)); display: grid; gap: 0.75rem; }
 
-@font-face {
-  font-family: "Chakra Petch";
-  src: url("/fonts/ChakraPetch-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-display: swap;
-}
-
 .signal-name, .signal-heading, .signal-signoff {
-  font-family: "Chakra Petch", "Arial Narrow", Arial, sans-serif;
+  font-family: var(--portfolio-display-font), "Arial Narrow", Arial, sans-serif;
   font-weight: 600;
   line-height: 0.9;
   text-transform: uppercase;
