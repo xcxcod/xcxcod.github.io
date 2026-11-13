@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Flashlight, Github, Linkedin, Menu, Moon, Sun, X } from "lucide-react";
 import { FlashlightOverlay } from "./flashlight-overlay";
+import { AfterHours, RocketFlyby } from "./portfolio-play";
 import type { Profile } from "@/types/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +46,8 @@ export function Navbar({ profile }: { profile: Profile }) {
           ))}
         </div>
         <div className="flex items-center gap-1 md:gap-2">
+          <AfterHours />
+          <RocketFlyby />
           <div className="hidden items-center gap-2 md:flex">
           <IconLink href={profile.githubUrl} label="GitHub">
             <Github size={18} />

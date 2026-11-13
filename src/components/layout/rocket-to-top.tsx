@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Rocket } from "lucide-react";
+import { rocketReturnEvent } from "./portfolio-play";
 
 export function RocketToTop() {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ export function RocketToTop() {
         document.getElementById("portfolio-main")?.focus({ preventScroll: true });
       }
       window.scrollTo({ top: 0, behavior: reducedMotion ? "instant" : "smooth" });
+      window.dispatchEvent(new Event(rocketReturnEvent));
     }
 
     if (reducedMotion) {

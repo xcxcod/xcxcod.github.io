@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import type { Profile } from "@/types/portfolio";
+import { FooterPlay } from "./portfolio-play";
 
 export function Footer({ profile }: { profile: Profile }) {
   return (
@@ -24,6 +25,7 @@ export function Footer({ profile }: { profile: Profile }) {
             Request Resume
           </Link>
         </div>
+        <FooterPlay />
         <div className="footer-wordmark md:col-span-2" aria-hidden="true">
           <p className="signal-signoff">{profile.name}</p>
           <div className="footer-wordmark-route">
