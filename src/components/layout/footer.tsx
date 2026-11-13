@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import type { Profile } from "@/types/portfolio";
-import { ParticleSignoff } from "./particle-signoff";
 
 export function Footer({ profile }: { profile: Profile }) {
   return (
@@ -25,7 +24,14 @@ export function Footer({ profile }: { profile: Profile }) {
             Request Resume
           </Link>
         </div>
-        <ParticleSignoff name={profile.name} />
+        <div className="footer-wordmark md:col-span-2" aria-hidden="true">
+          <p className="signal-signoff">{profile.name}</p>
+          <div className="footer-wordmark-route">
+            <span className="footer-wordmark-terminal" />
+            <span className="footer-wordmark-trace" />
+            <span className="footer-wordmark-terminal" />
+          </div>
+        </div>
         <p className="font-mono text-xs uppercase text-slate-200 md:col-span-2">Copyright {new Date().getFullYear()} {profile.name}.</p>
       </div>
     </footer>

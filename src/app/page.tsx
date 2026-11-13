@@ -2,10 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Pause, Play } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Database, Globe, Layers, Pause, Play } from "lucide-react";
 import { TraceBuild } from "@/components/projects/trace-build";
 import { TechnologyLogo } from "@/components/skills/toolkit-section";
 import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
+
+const portfolioStack = [
+  { name: "Next.js", role: "Portfolio interface", icon: Layers },
+  { name: "GitHub Pages", role: "Static hosting", icon: Globe },
+  { name: "Firebase", role: "Sign-in and project data", icon: Database }
+];
 
 export default function HomePage() {
   const { profile, projects, skills } = usePublicPortfolio();
@@ -34,16 +40,8 @@ export default function HomePage() {
       <section className="signal-hero" aria-labelledby="portfolio-name">
         <div className="signal-hero-copy">
           <p className="editorial-label flex items-center gap-3"><span className="connection-marker" />{profile.location}</p>
+          <h1 id="portfolio-name" className="signal-name mt-5">{profile.name}</h1>
           <p className="mt-4 max-w-[17rem] text-base leading-relaxed text-slate-200">{profile.study} student at {profile.university}.</p>
-        </div>
-        <div className="trace-hero-art" aria-hidden>
-          <div className="trace-stack"><span /><span /><span /></div>
-          <div className="trace-connections"><i /><i /><i /></div>
-        </div>
-        <ul className="signal-interests editorial-label" aria-label="Technical interests">
-          {profile.technicalInterests.map((interest) => <li key={interest}>{interest}</li>)}
-        </ul>
-        <h1 id="portfolio-name" className="signal-name">{profile.name}</h1>
         <div className="signal-actions">
           <a href="#selected-work" className="editorial-action">View work <ArrowDown size={16} aria-hidden /></a>
           <Link href="/resume" className="editorial-link">Request resume <ArrowUpRight size={16} aria-hidden /></Link>
@@ -51,6 +49,21 @@ export default function HomePage() {
             {paused ? <Play size={16} aria-hidden /> : <Pause size={16} aria-hidden />}
           </button>
         </div>
+        </div>
+        <figure className="hero-stack">
+          <figcaption className="editorial-label">How this site works</figcaption>
+          <ul>
+            {portfolioStack.map(({ name, role, icon: Icon }) => (
+              <li key={name}>
+                <Icon size={20} aria-hidden />
+                <div><strong>{name}</strong><p>{role}</p></div>
+              </li>
+            ))}
+          </ul>
+          <Link className="editorial-link" href="/projects/portfolio-website">
+            Explore the build <ArrowUpRight size={16} aria-hidden />
+          </Link>
+        </figure>
       </section>
 
       <section id="selected-work" className="scroll-mt-24">

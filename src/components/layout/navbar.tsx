@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { Github, Linkedin, Menu, Moon, Sun, X } from "lucide-react";
+import { useCallback, useState } from "react";
+import { Flashlight, Github, Linkedin, Menu, Moon, Sun, X } from "lucide-react";
+import { FlashlightOverlay } from "./flashlight-overlay";
 import type { Profile } from "@/types/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +19,8 @@ export function Navbar({ profile }: { profile: Profile }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(true);
+  const [flashlight, setFlashlight] = useState(false);
+  const dismissFlashlight = useCallback(() => setFlashlight(false), []);
 
   function toggleTheme() {
     const next = !dark;
@@ -26,6 +29,8 @@ export function Navbar({ profile }: { profile: Profile }) {
   }
 
   return (
+    <>
+    {flashlight && <FlashlightOverlay onDismiss={dismissFlashlight} />}
     <header className="editorial sticky top-0 z-50 border-b border-current/15">
       <nav className="section-shell flex items-center justify-between py-4" aria-label="Main navigation">
         <Link href="/" className="font-mono text-sm font-semibold uppercase tracking-[0.22em] text-ink dark:text-white">
@@ -39,7 +44,8 @@ export function Navbar({ profile }: { profile: Profile }) {
             </Link>
           ))}
         </div>
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="flex items-center gap-1 md:gap-2">
+          <div className="hidden items-center gap-2 md:flex">
           <IconLink href={profile.githubUrl} label="GitHub">
             <Github size={18} />
           </IconLink>
@@ -52,10 +58,14 @@ export function Navbar({ profile }: { profile: Profile }) {
           <button type="button" onClick={toggleTheme} className="p-2 text-slate-600 transition hover:text-accent dark:text-slate-300" aria-label="Toggle theme">
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-        </div>
+          </div>
+          <button type="button" className="flashlight-toggle" aria-label="Flashlight mode" aria-pressed={flashlight} title={flashlight ? "Turn flashlight off (Esc)" : "Turn flashlight on"} onClick={() => setFlashlight((value) => !value)}>
+            <Flashlight size={18} aria-hidden="true" />
+          </button>
         <button type="button" className="border border-ink/20 p-2 md:hidden dark:border-white/25" onClick={() => setOpen((value) => !value)} aria-label="Open navigation menu" aria-expanded={open}>
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
+        </div>
       </nav>
       <div className={cn("border-t border-ink/10 bg-[#f7f5ef] px-4 py-3 md:hidden dark:border-white/10 dark:bg-slate-950", open ? "block" : "hidden")}>
         <div className="mx-auto grid max-w-6xl gap-2 py-3">
@@ -67,6 +77,7 @@ export function Navbar({ profile }: { profile: Profile }) {
         </div>
       </div>
     </header>
+    </>
   );
 }
 
