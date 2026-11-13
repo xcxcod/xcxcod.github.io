@@ -38,6 +38,11 @@ export default function HomePage() {
   return (
     <div className="editorial signal-experience" ref={page} data-motion-paused={paused}>
       <section className="signal-hero" aria-labelledby="portfolio-name">
+        <p className="hero-skyline-credit">
+          <a href="https://commons.wikimedia.org/wiki/File:Melbourne_yarra_twilight.jpg">Skyline photo: Diliff</a>
+          {" · "}
+          <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+        </p>
         <div className="signal-hero-copy">
           <p className="editorial-label flex items-center gap-3"><span className="connection-marker" />{profile.location}</p>
           <h1 id="portfolio-name" className="signal-name mt-5">{profile.name}</h1>
