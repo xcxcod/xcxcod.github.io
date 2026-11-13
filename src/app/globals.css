@@ -4,10 +4,57 @@
 
 :root {
   color-scheme: light;
+  --editorial-paper: #f5f7fa;
+  --editorial-ink: #18202d;
+  --editorial-accent: #244bd4;
 }
 
 .dark {
   color-scheme: dark;
+  --editorial-paper: #111722;
+  --editorial-ink: #edf1f9;
+  --editorial-accent: #a8baff;
+}
+
+.editorial {
+  background-color: var(--editorial-paper);
+  color: var(--editorial-ink);
+}
+
+.editorial-label {
+  @apply font-mono text-xs uppercase;
+  color: var(--editorial-accent);
+}
+
+.connection-marker {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: none;
+  border: 2px solid var(--editorial-accent);
+  border-radius: 50%;
+}
+
+.editorial-action, .editorial-link {
+  @apply inline-flex min-h-11 items-center gap-2 text-sm font-semibold;
+}
+
+.editorial-action {
+  @apply px-4 py-2;
+  background-color: var(--editorial-accent);
+  color: var(--editorial-paper);
+}
+
+.editorial-link {
+  color: var(--editorial-accent);
+}
+
+.editorial-link:hover, .editorial-action:hover {
+  @apply underline underline-offset-4;
+}
+
+.editorial-diagram {
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--editorial-accent) 18%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
 }
 
 html {

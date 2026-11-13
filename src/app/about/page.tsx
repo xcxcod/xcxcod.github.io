@@ -1,6 +1,7 @@
 "use client";
 
 import { SectionHeading } from "@/components/ui/section-heading";
+import { ProfilePuzzle } from "@/features/profile-puzzle/profile-puzzle";
 import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
 
 export default function AboutPage() {
@@ -26,6 +27,10 @@ export default function AboutPage() {
           </article>
         ))}
       </div>
+      <details className="mt-8 max-w-md border-t border-current/15 pt-4">
+        <summary className="cursor-pointer font-semibold">Rubik puzzle experiment</summary>
+        <div className="mt-4"><ProfilePuzzle imageUrl={profile.profileImageUrl} alt={profile.name} /></div>
+      </details>
     </section>
   );
 }

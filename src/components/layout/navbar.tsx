@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Github, Linkedin, Menu, Moon, Sun, X } from "lucide-react";
 import type { Profile } from "@/types/portfolio";
@@ -13,6 +14,7 @@ const links = [
 ];
 
 export function Navbar({ profile }: { profile: Profile }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
 
@@ -28,14 +30,15 @@ export function Navbar({ profile }: { profile: Profile }) {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/10 bg-[#f7f5ef]/90 backdrop-blur dark:border-white/10 dark:bg-slate-950/90">
+    <header className="editorial sticky top-0 z-50 border-b border-current/15">
       <nav className="section-shell flex items-center justify-between py-4" aria-label="Main navigation">
         <Link href="/" className="font-mono text-sm font-semibold uppercase tracking-[0.22em] text-ink dark:text-white">
           {profile.name}
         </Link>
         <div className="hidden items-center gap-6 md:flex">
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className="font-mono text-xs uppercase tracking-[0.18em] text-slate-600 transition hover:text-accent dark:text-slate-300">
+            <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined} className="editorial-link relative">
+              {pathname?.startsWith(link.href) && <span className="connection-marker absolute -left-3 h-1.5 w-1.5" aria-hidden />}
               {link.label}
             </Link>
           ))}
@@ -78,6 +81,7 @@ export function Navbar({ profile }: { profile: Profile }) {
 }
 
 function IconLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+  if (!/^https?:\/\//i.test(href)) return null;
   return (
     <a href={href} target="_blank" rel="noreferrer" aria-label={label} title={label} className="p-2 text-slate-600 transition hover:-translate-y-0.5 hover:text-accent dark:text-slate-300">
       {children}

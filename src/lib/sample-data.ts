@@ -29,11 +29,11 @@ export const projects: Project[] = [
     slug: "portfolio-website",
     shortDescription: "A professional portfolio platform with authenticated admin workflows.",
     fullDescription:
-      "A full-stack portfolio website built to present student projects, technical skills, and resume access requests in a professional way. Replace this placeholder with your own project details when ready.",
+      "I built this portfolio to document my projects and make it easy to contact me or request my resume. The project combines a public project archive with a signed-in admin area for managing content and reviewing requests.",
     imageUrl: "",
     galleryImages: [],
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Firebase"],
-    githubUrl: "YOUR_GITHUB_URL",
+    githubUrl: "https://github.com/xcxcod/xcxcod.github.io",
     liveUrl: "",
     status: "In Progress",
     type: "Personal Project",

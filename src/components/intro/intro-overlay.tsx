@@ -33,7 +33,7 @@ function getCanvasPoint(canvas: HTMLCanvasElement, clientX: number, clientY: num
   };
 }
 
-export function IntroOverlay() {
+export function IntroOverlay({ autoplay = true }: { autoplay?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const progressCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -45,7 +45,7 @@ export function IntroOverlay() {
   const particleFrameRef = useRef<number | null>(null);
   const revealFrameRef = useRef<number | null>(null);
   const timersRef = useRef<number[]>([]);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(autoplay);
   const [exiting, setExiting] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [cursorPoint, setCursorPoint] = useState<Point | null>(null);
@@ -385,7 +385,7 @@ export function IntroOverlay() {
     setReducedMotion(media.matches);
     setSoundEnabled(storedSound !== "off");
 
-    playIntro(media.matches, true);
+    if (autoplay) playIntro(media.matches, true);
 
     function handleReplayIntro() {
       playIntro(media.matches, true);
@@ -414,7 +414,7 @@ export function IntroOverlay() {
       }
       if (revealFrameRef.current !== null) window.cancelAnimationFrame(revealFrameRef.current);
     };
-  }, [clearParticles, clearTimers, playIntro, stopScratchSound]);
+  }, [autoplay, clearParticles, clearTimers, playIntro, stopScratchSound]);
 
   useEffect(() => {
     localStorage.setItem(SOUND_STORAGE_KEY, soundEnabled ? "on" : "off");

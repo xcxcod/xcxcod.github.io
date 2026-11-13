@@ -1,6 +1,8 @@
 "use client";
 
 import { Calendar, ExternalLink, Github } from "lucide-react";
+import Link from "next/link";
+import { ProjectVisual } from "@/components/projects/project-visual";
 import { LinkButton } from "@/components/ui/button";
 import { formatDate } from "@/lib/utils";
 import { usePublicProject } from "@/hooks/use-public-portfolio";
@@ -30,11 +32,13 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
   }
 
   return (
-    <article className="section-shell py-16 sm:py-24">
-      <p className="font-mono text-sm text-accent dark:text-teal-300">{"// case_study"}</p>
+    <div className="editorial">
+    <article className="section-shell py-12 sm:py-20">
+      <Link href="/projects" className="editorial-link">All projects</Link>
+      <p className="editorial-label mt-6 flex items-center gap-3"><span className="connection-marker" />Case study</p>
       <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_320px] lg:items-end">
         <div>
-          <h1 className="text-balance text-6xl font-semibold leading-[0.9] tracking-tight sm:text-7xl">{project.title}</h1>
+          <h1 className="text-balance text-4xl font-black leading-[0.95] sm:text-6xl lg:text-7xl">{project.title}</h1>
           <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-600 dark:text-slate-300">{project.shortDescription}</p>
         </div>
         <aside className="border-l border-ink/15 pl-6 dark:border-white/15">
@@ -47,28 +51,27 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
               <dt className="font-mono text-xs uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Status</dt>
               <dd className="mt-1 text-lg font-semibold">{project.status}</dd>
             </div>
-            <div>
+            {project.completionDate && <div>
               <dt className="font-mono text-xs uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Year</dt>
               <dd className="mt-1 flex items-center gap-2 text-lg font-semibold"><Calendar size={16} /> {formatDate(project.completionDate)}</dd>
-            </div>
+            </div>}
           </dl>
         </aside>
       </div>
 
-      <div className="mt-12 aspect-[16/9] overflow-hidden border border-ink/15 bg-slate-100 shadow-[12px_12px_0_rgba(23,32,51,0.08)] dark:border-white/15 dark:bg-slate-900">
-        {project.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={project.imageUrl} alt="" className="h-full w-full object-cover" />
-        ) : (
-          <div className="image-noise flex h-full items-center justify-center font-mono text-xs uppercase tracking-[0.18em] text-slate-500">YOUR_PROJECT_IMAGE</div>
-        )}
-      </div>
+      <div className="mt-10"><ProjectVisual project={project} /></div>
 
       <div className="mt-16 grid gap-12 lg:grid-cols-[320px_1fr]">
         <p className="font-mono text-sm text-accent dark:text-teal-300">{"// overview"}</p>
         <div className="max-w-3xl">
           <h2 className="text-3xl font-semibold tracking-tight">Overview</h2>
           <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">{project.fullDescription}</p>
+          {project.id === "student-portfolio" && (
+            <>
+              <h2 className="mt-8 text-2xl font-semibold">Deployment trade-off</h2>
+              <p className="mt-3 leading-7">GitHub Pages serves the exported Next.js pages as static files. Firebase handles sign-in and Firestore access separately, so the public site can run without a Next.js server.</p>
+            </>
+          )}
         </div>
       </div>
 
@@ -99,10 +102,11 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
       ) : null}
 
       <div className="mt-16 flex flex-wrap gap-4 border-t border-ink/15 pt-8 dark:border-white/15">
-        {project.githubUrl ? <LinkButton href={project.githubUrl} variant="secondary"><Github size={16} className="mr-2" /> Repository</LinkButton> : null}
+        {/^https?:\/\//i.test(project.githubUrl || "") ? <LinkButton href={project.githubUrl} variant="secondary"><Github size={16} className="mr-2" /> Repository</LinkButton> : null}
         {project.liveUrl ? <LinkButton href={project.liveUrl} variant="primary"><ExternalLink size={16} className="mr-2" /> Live Demo</LinkButton> : null}
         <LinkButton href="/projects" variant="ghost">Back to Work</LinkButton>
       </div>
     </article>
+    </div>
   );
 }

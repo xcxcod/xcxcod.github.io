@@ -6,8 +6,8 @@ import { Navbar } from "@/components/layout/navbar";
 import { profile } from "@/lib/sample-data";
 
 export const metadata: Metadata = {
-  title: "IT Student Portfolio",
-  description: "Professional portfolio for an Information Technology student."
+  title: "Dani Adonai | IT Portfolio",
+  description: "Selected projects and technical learning from Dani Adonai, an Information Technology student at RMIT University."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar profile={profile} />
         <main>{children}</main>
         <Footer profile={profile} />
-        <IntroOverlay />
+        <IntroOverlay autoplay={false} />
       </body>
     </html>
   );
