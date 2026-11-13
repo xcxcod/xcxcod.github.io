@@ -65,7 +65,7 @@ export default function HomePage() {
             Explore the build <ArrowUpRight size={16} aria-hidden />
           </Link>
         </figure>
-        <HeroRover />
+        <HeroRover paused={paused} />
       </section>
 
       <section id="selected-work" className="skyline-work scroll-mt-24">

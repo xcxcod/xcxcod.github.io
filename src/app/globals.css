@@ -315,13 +315,13 @@
 }
 
 .signal-hero-copy { min-width: 0; }
-.signal-hero { padding-bottom: 5.25rem; }
+.signal-hero { padding-bottom: 10rem; }
 
 .hero-rover {
-  --rover-width: 5.25rem;
+  --rover-width: 15rem;
   position: absolute;
   inset: auto 0 1.15rem;
-  height: 2.6rem;
+  height: calc(var(--rover-width) * 0.525);
   overflow: hidden;
   pointer-events: none;
   color: var(--editorial-accent);
@@ -332,10 +332,15 @@
   animation: hero-rover-patrol 56s linear infinite;
 }
 
+.hero-rover-model { position: absolute; inset: 0; }
+.hero-rover-model canvas { display: block; width: 100%; height: 100%; }
+.hero-rover[data-model-ready="true"] .hero-rover-travel { display: none; }
+
 .hero-rover-body { display: block; width: var(--rover-width); animation: hero-rover-turn 56s steps(1, end) infinite; }
 .hero-rover-wheel { transform-box: fill-box; transform-origin: center; animation: hero-rover-roll 1.8s linear infinite; }
-.hero-rover-arm { transform-origin: 73px 32px; animation: hero-rover-reach 3.8s ease-in-out infinite; }
-.hero-rover-eye { transform-origin: 57px 13px; animation: hero-rover-reach 4.7s ease-in-out -1.2s infinite alternate; }
+.hero-rover-arm { transform-origin: 167px 78px; animation: hero-rover-reach 3.8s ease-in-out infinite; }
+.hero-rover-elbow { transform-origin: 186px 51px; animation: hero-rover-reach 2.9s ease-in-out -0.6s infinite reverse; }
+.hero-rover-eye { transform-origin: 116px 27px; animation: hero-rover-reach 4.7s ease-in-out -1.2s infinite alternate; }
 .hero-rover-lens { animation: hero-rover-scan 2.6s ease-in-out infinite alternate; }
 
 @keyframes hero-rover-patrol {
@@ -356,11 +361,12 @@
 .signal-experience[data-motion-paused="true"] .hero-rover * { animation-play-state: paused; }
 
 @media (max-width: 767px) {
+  .signal-hero { padding-bottom: 7.5rem; }
+  .hero-rover { --rover-width: 11rem; }
   .hero-rover-travel, .hero-rover-body { animation-duration: 32s; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-rover { left: 1rem; }
   .hero-rover * { animation: none !important; }
 }
 
