@@ -41,7 +41,7 @@ export default function HomePage() {
         <div className="signal-hero-copy">
           <p className="editorial-label flex items-center gap-3"><span className="connection-marker" />{profile.location}</p>
           <h1 id="portfolio-name" className="signal-name mt-5">{profile.name}</h1>
-          <p className="mt-4 max-w-[17rem] text-base leading-relaxed text-slate-200">{profile.study} student at {profile.university}.</p>
+          <p className="signal-hero-description mt-4 max-w-[17rem] text-base leading-relaxed">{profile.study} student at {profile.university}.</p>
         <div className="signal-actions">
           <a href="#selected-work" className="editorial-action">View work <ArrowDown size={16} aria-hidden /></a>
           <Link href="/resume" className="editorial-link">Request resume <ArrowUpRight size={16} aria-hidden /></Link>
@@ -66,7 +66,7 @@ export default function HomePage() {
         </figure>
       </section>
 
-      <section id="selected-work" className="scroll-mt-24">
+      <section id="selected-work" className="skyline-work scroll-mt-24">
         <div className="signal-trace" aria-hidden />
         <div className="signal-shell py-12 sm:py-20" data-signal-reveal>
           <div className="mb-7 flex flex-wrap items-end justify-between gap-3">

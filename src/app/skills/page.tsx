@@ -10,7 +10,7 @@ export default function SkillsPage() {
   return (
     <section className="section-shell py-16 sm:py-24">
       <SectionHeading eyebrow="Skills" title="Technical toolkit" />
-      <div className="mt-8"><ToolkitSection skills={skills} compact /></div>
+      <div className="mt-8"><ToolkitSection skills={skills} /></div>
     </section>
   );
 }

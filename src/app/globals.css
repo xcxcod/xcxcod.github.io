@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.skyline-work > .signal-trace {
+  background: linear-gradient(90deg, transparent, var(--editorial-accent) 45% 55%, transparent);
+}
+
+.resume-trace-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.resume-trace-steps li {
+  border-top: 2px solid currentColor;
+  padding-block: 0.5rem;
+  font-size: 0.8125rem;
+}
+
+.resume-trace-steps li[data-reached="true"] { color: var(--editorial-accent); }
+.resume-trace-steps li[aria-current="step"] { font-weight: 700; }
+
 .after-hours {
   width: min(calc(100% - 2rem), 42rem);
   max-height: calc(100dvh - 2rem);
@@ -255,27 +274,49 @@
 }
 
 .signal-hero {
-  --editorial-paper: #111317;
-  --editorial-accent: #9eb6ff;
+  --hero-grid: #18202d0c;
+  --hero-muted: #475569;
+  --hero-line: #244bd440;
+  --skyline-ink: #244b88;
+  --skyline-opacity: 0.38;
   position: relative;
+  isolation: isolate;
   display: grid;
   align-items: center;
   gap: 2rem;
   padding: 3rem max(1rem, calc((100% - 88rem) / 2));
-  color: #f4f6fc;
+  color: var(--editorial-ink);
   background:
-    repeating-linear-gradient(90deg, #c2d3ff0c 0 1px, transparent 1px 8px),
-    linear-gradient(180deg, #111317 0%, #111317d9 48%, #11131770 100%),
-    url("../../public/images/melbourne-skyline.svg") center bottom / max(54rem, 100%) auto no-repeat,
-    #111317;
+    repeating-linear-gradient(90deg, var(--hero-grid) 0 1px, transparent 1px 8px),
+    var(--editorial-paper);
+}
+
+.dark .signal-hero {
+  --hero-grid: #c2d3ff0c;
+  --hero-muted: #cbd5e1;
+  --hero-line: #9eb6ff66;
+  --skyline-ink: #fff;
+  --skyline-opacity: 0.55;
+}
+
+.signal-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--skyline-opacity);
+  background: linear-gradient(transparent, var(--skyline-ink));
+  mask: url("../../public/images/melbourne-skyline.svg") center bottom / max(54rem, 100%) auto no-repeat;
 }
 
 .signal-hero-copy { min-width: 0; }
-.hero-stack { min-width: 0; border-block: 1px solid #9eb6ff66; padding-block: 1rem; }
+.signal-hero-description { color: var(--hero-muted); }
+.hero-stack { min-width: 0; border-block: 1px solid var(--hero-line); padding-block: 1rem; }
 .hero-stack ul { margin-top: 1rem; }
-.hero-stack li { display: flex; align-items: center; gap: 0.875rem; padding-block: 0.65rem; border-bottom: 1px solid #9eb6ff33; }
+.hero-stack li { display: flex; align-items: center; gap: 0.875rem; padding-block: 0.65rem; border-bottom: 1px solid var(--hero-line); }
 .hero-stack li svg { flex: none; color: var(--editorial-accent); }
-.hero-stack li p { font-size: 0.875rem; color: #cbd5e1; }
+.hero-stack li p { font-size: 0.875rem; color: var(--hero-muted); }
 
 @media (min-width: 1024px) {
   .signal-hero { grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.45fr); gap: 3rem; min-height: 30rem; }
@@ -292,8 +333,8 @@
   margin-top: 1.25rem;
   animation-delay: 100ms;
 }
-.signal-motion { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; border: 1px solid #9eb6ff66; color: #e0e8ff; }
-.signal-motion:hover { background: #283a68; }
+.signal-motion { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; border: 1px solid var(--hero-line); color: var(--editorial-accent); }
+.signal-motion:hover { background: var(--hero-grid); }
 .trace-toolbar button, .editorial-action, .signal-motion { transition: background-color 180ms, color 180ms; }
 .trace-routes a svg { transition: transform 180ms ease; }
 .trace-routes a:hover svg, .trace-routes a:focus-visible svg { transform: translate(2px, -2px); }
@@ -394,16 +435,10 @@
 }
 
 .signal-trace {
-  height: 1.25rem;
-  border-block: 1px solid #9eb6ff45;
+  height: 1px;
   background:
-    radial-gradient(circle at 12px 6px, #9eb6ff 0 2px, transparent 3px),
-    radial-gradient(circle at 62px 12px, #9eb6ff 0 2px, transparent 3px),
-    linear-gradient(90deg, transparent 12px, #9eb6ff80 12px 46px, transparent 46px) 0 5px,
-    linear-gradient(90deg, transparent 46px, #9eb6ff80 46px 62px, transparent 62px) 0 11px,
-    linear-gradient(90deg, transparent 45px, #9eb6ff80 45px 46px, transparent 46px) 0 5px;
-  background-size: 96px 100%, 96px 100%, 96px 1px, 96px 1px, 96px 7px;
-  background-repeat: repeat-x;
+    linear-gradient(90deg, #9eb6ffb3, #9eb6ff45) center / 3rem 100% no-repeat,
+    #9eb6ff33;
 }
 
 .signal-band { background-color: #2347b5; color: #f4f6fc; --editorial-paper: #101b3c; --editorial-accent: #e0e8ff; }
@@ -536,35 +571,6 @@ body {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes orbit_core {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes orbit_label {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes orbit_planet {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 
