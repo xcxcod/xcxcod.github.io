@@ -102,7 +102,7 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
       ) : null}
 
       <div className="mt-16 flex flex-wrap gap-4 border-t border-ink/15 pt-8 dark:border-white/15">
-        {/^https?:\/\//i.test(project.githubUrl || "") ? <LinkButton href={project.githubUrl} variant="secondary"><Github size={16} className="mr-2" /> Repository</LinkButton> : null}
+        {project.githubUrl && /^https?:\/\//i.test(project.githubUrl) ? <LinkButton href={project.githubUrl} variant="secondary"><Github size={16} className="mr-2" /> Repository</LinkButton> : null}
         {project.liveUrl ? <LinkButton href={project.liveUrl} variant="primary"><ExternalLink size={16} className="mr-2" /> Live Demo</LinkButton> : null}
         <LinkButton href="/projects" variant="ghost">Back to Work</LinkButton>
       </div>
