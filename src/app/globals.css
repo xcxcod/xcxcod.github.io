@@ -265,27 +265,11 @@
   color: #f4f6fc;
   background:
     repeating-linear-gradient(90deg, #c2d3ff0c 0 1px, transparent 1px 8px),
-    linear-gradient(90deg, #111317ed 8%, #111317b8 55%, #111317d9),
-    url("../../public/images/melbourne-yarra-twilight.jpg") center 54% / cover no-repeat,
+    linear-gradient(180deg, #111317 0%, #111317d9 48%, #11131770 100%),
+    url("../../public/images/melbourne-skyline.svg") center bottom / max(54rem, 100%) auto no-repeat,
     #111317;
 }
 
-.hero-skyline-credit {
-  position: absolute;
-  bottom: 0.65rem;
-  right: 1rem;
-  color: #d8e2f7;
-  font-size: 0.75rem;
-}
-
-.hero-skyline-credit a {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-@media (max-width: 767px) {
-  .signal-hero { background-position: center, center, 55% center; }
-}
 .signal-hero-copy { min-width: 0; }
 .hero-stack { min-width: 0; border-block: 1px solid #9eb6ff66; padding-block: 1rem; }
 .hero-stack ul { margin-top: 1rem; }
