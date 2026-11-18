@@ -9,5 +9,5 @@ export const socialLinks = {
   linkedin: "",
   instagram: "",
   x: "",
-  email: "", // Email address only, e.g. name@example.com (not a mailto: URL).
+  email: "adonaidani30@gmail.com", // Email address only, e.g. name@example.com (not a mailto: URL).
 };
