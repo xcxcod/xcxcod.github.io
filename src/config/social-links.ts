@@ -6,7 +6,7 @@ import { projects } from "@/lib/sample-data";
  */
 export const socialLinks = {
   github: projects.find(project => project.slug === "portfolio-website")?.githubUrl ?? "",
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/dani-adonai-8bb445439/",
   instagram: "",
   x: "",
   email: "adonaidani30@gmail.com", // Email address only, e.g. name@example.com (not a mailto: URL).
