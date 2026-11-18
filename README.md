@@ -7,6 +7,7 @@ A professional full-stack portfolio for an Information Technology student. It pr
 - Next.js App Router
 - TypeScript and React
 - Tailwind CSS
+- React Three Fiber / Drei and desktop-only GSAP ScrollTrigger
 - Firebase Authentication
 - Firestore
 - Static export for GitHub Pages
@@ -98,3 +99,7 @@ npm run build
 ## GitHub Pages
 
 See [GITHUB_PAGES.md](./GITHUB_PAGES.md) for setup steps, required repository variables, and static hosting limitations.
+
+## Hero motion and profiling
+
+The hero uses a lazy-loaded ScrollTrigger timeline with direct scrubbing, CSS sticky and a fixed-size on-demand R3F scene. Mobile/reduced-motion paths remain static and semantic. Other sections retain their existing coordinator, with no competing hero targets. See [the investigation, recordings and reproduction steps](docs/performance/hero-investigation.md). The local benchmark harness lives in `scripts/` and is never injected into production output.

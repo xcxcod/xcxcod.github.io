@@ -78,7 +78,7 @@ const technologySites = new Map([
   ["intellij idea", "https://www.jetbrains.com/idea/"]
 ]);
 
-function TechnologyLogo({ skill, size = 15 }: { skill: string; size?: number }) {
+export function TechnologyLogo({ skill, size = 15 }: { skill: string; size?: number }) {
   const Icon = logoMap[skill.trim().toLowerCase()] ?? Code2;
   return <Icon size={size} aria-hidden="true" />;
 }

@@ -1,0 +1,37 @@
+{
+  "p95": {
+    "beforeMedian": 53.40000000002328,
+    "afterMedian": 14.10000000000582,
+    "reductionPercent": 73.59550561797815
+  },
+  "p99": {
+    "beforeMedian": 172.60000000000582,
+    "afterMedian": 26.79999999998836,
+    "reductionPercent": 84.47276940904551
+  },
+  "framesOver33": {
+    "beforeMedian": 54,
+    "afterMedian": 4,
+    "reductionPercent": 92.5925925925926
+  },
+  "longTaskCount": {
+    "beforeMedian": 28,
+    "afterMedian": 2,
+    "reductionPercent": 92.85714285714286
+  },
+  "longTaskMs": {
+    "beforeMedian": 3133,
+    "afterMedian": 112,
+    "reductionPercent": 96.4251516118736
+  },
+  "forcedStyleLayoutMs": {
+    "beforeMedian": 252.4,
+    "afterMedian": 1.3,
+    "reductionPercent": 99.4849445324881
+  },
+  "canvasSizeMutations": {
+    "beforeMedian": 56,
+    "afterMedian": 0
+  },
+  "scope": "Median of 3 matched desktop recordings each, 1600x1111 CSS px, DPR ~0.9. Callback timings, not presented FPS."
+}
