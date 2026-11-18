@@ -21,6 +21,9 @@ export interface Profile {
   study: string;
   githubUrl: string;
   linkedinUrl: string;
+  instagramUrl?: string;
+  twitterUrl?: string;
+  email?: string;
   profileImageUrl?: string;
   resumeStoragePath?: string;
 }
