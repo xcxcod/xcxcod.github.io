@@ -1,138 +1,58 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Database, Globe, Layers, Pause, Play } from "lucide-react";
-import { TraceBuild } from "@/components/projects/trace-build";
+import Image from "next/image";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { InteractiveField } from "@/components/home/interactive-field";
+import { Reveal } from "@/components/home/reveal";
+import { ScrollPresentation } from "@/components/home/scroll-presentation";
 import { TechnologyLink } from "@/components/skills/toolkit-section";
-import { HeroRover } from "@/components/layout/hero-rover";
 import { usePublicPortfolio } from "@/hooks/use-public-portfolio";
-
-const portfolioStack = [
-  { name: "Next.js", role: "Portfolio interface", icon: Layers },
-  { name: "GitHub Pages", role: "Static hosting", icon: Globe },
-  { name: "Firebase", role: "Sign-in and project data", icon: Database }
-];
+import portfolioImage from "../../public/images/portfolio-current.jpg";
 
 export default function HomePage() {
   const { profile, projects, skills } = usePublicPortfolio();
-  const published = projects.filter((project) => project.published);
-  const featured = published.filter((project) => project.featured);
-  const selected = featured.length ? featured : published;
-  const [paused, setPaused] = useState(false);
-  const page = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const root = page.current;
-    if (!root || !("IntersectionObserver" in window)) return;
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("signal-arrived");
-        observer.unobserve(entry.target);
-      }
-    }, { threshold: 0.15 });
-    root.querySelectorAll("[data-signal-reveal]").forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
-
+  const featured = projects.filter((project) => project.published && project.featured);
   return (
-    <div className="editorial signal-experience" ref={page} data-motion-paused={paused}>
-      <section className="signal-hero" aria-labelledby="portfolio-name">
-        <div className="signal-hero-copy">
-          <p className="editorial-label flex items-center gap-3"><span className="connection-marker" />{profile.location}</p>
-          <h1 id="portfolio-name" className="signal-name mt-5">{profile.name}</h1>
-          <p className="signal-hero-description mt-4 max-w-[17rem] text-base leading-relaxed">{profile.study} student at {profile.university}.</p>
-        <div className="signal-actions">
-          <a href="#selected-work" className="editorial-action">View work <ArrowDown size={16} aria-hidden /></a>
-          <Link href="/resume" className="editorial-link">Request resume <ArrowUpRight size={16} aria-hidden /></Link>
-          <button type="button" className="signal-motion" aria-label={paused ? "Resume animations" : "Pause animations"} onClick={() => setPaused(!paused)}>
-            {paused ? <Play size={16} aria-hidden /> : <Pause size={16} aria-hidden />}
-          </button>
+    <ScrollPresentation>
+      <section className="studio-hero">
+        <div className="hero-heading">
+          <div><p className="eyebrow"><span className="connection-marker" /> {profile.name} · {profile.location}</p><h1><span className="hero-line"><span>Turning curiosity</span></span><span className="hero-line"><span>into <em>working ideas.</em></span></span></h1></div>
+          <div className="hero-intro"><p>{profile.study} student at {profile.university}. Learning by connecting software, systems and security.</p><a className="pill-link" href="#selected-work">Discover my work <ArrowDownRight size={19} aria-hidden /></a></div>
         </div>
-        </div>
-        <figure className="hero-stack">
-          <figcaption className="editorial-label">How this site works</figcaption>
-          <ul>
-            {portfolioStack.map(({ name, role, icon: Icon }) => (
-              <li key={name}>
-                <Icon size={20} aria-hidden />
-                <div><strong>{name}</strong><p>{role}</p></div>
-              </li>
-            ))}
-          </ul>
-          <Link className="editorial-link" href="/projects/portfolio-website">
-            Explore the build <ArrowUpRight size={16} aria-hidden />
-          </Link>
-        </figure>
-        <HeroRover paused={paused} />
+        <InteractiveField />
       </section>
-
-      <section id="selected-work" className="skyline-work scroll-mt-24">
-        <div className="signal-trace" aria-hidden />
-        <div className="signal-shell py-12 sm:py-20" data-signal-reveal>
-          <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
-            <h2 className="signal-heading">Selected work</h2>
-            <Link href="/projects" className="editorial-link">All projects <ArrowUpRight size={16} aria-hidden /></Link>
-          </div>
-          {selected.length ? selected.map((project) => (
-            <article key={project.id} className="signal-project">
-              <TraceBuild project={project} />
-              <div>
-                <p className="editorial-label flex flex-wrap items-center gap-3"><span className="connection-marker" />{project.type}{project.status !== project.type && <span className="text-current opacity-80">/ {project.status}</span>}</p>
-                <h3 className="mt-3 text-3xl font-bold">{project.title}</h3>
-                <p className="mt-3 max-w-md leading-relaxed">{project.shortDescription}</p>
-                <ul className="mt-5 flex flex-wrap gap-2">{project.technologies.map((tech) => <li key={tech} className="signal-tag">{tech}</li>)}</ul>
-                <Link href={`/projects/${project.slug}`} className="editorial-link mt-4" aria-label={`Read case study: ${project.title}`}>Read case study <ArrowRight size={16} aria-hidden /></Link>
-              </div>
-            </article>
-          )) : <p>No published projects yet.</p>}
-        </div>
+      <section id="selected-work" className="studio-work section-shell">
+        <Reveal className="section-topline"><div><p className="eyebrow">01 / From idea to implementation</p><h2>Selected work<span>.</span></h2></div><Link className="pill-link" href="/projects">All projects <ArrowUpRight size={18} aria-hidden /></Link></Reveal>
+        {featured.length ? featured.map((project, index) => (
+          <div key={project.id} className="project-sequence" data-scroll-stage><article className="studio-project">
+            <Link href={`/projects/${project.slug}`} className="project-cover">
+              {project.imageUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={project.imageUrl} alt={`${project.title} interface`} />
+              ) : project.slug === "portfolio-website" ? <Image src={portfolioImage} alt="Current portfolio homepage with editorial typography and an interactive blue sculpture" /> : <span className="project-title-art">{project.title}</span>}
+              <span className="project-cover-label">{String(index+1).padStart(2,"0")} / Explore the build</span><span className="project-open"><ArrowUpRight aria-hidden /><span className="sr-only">Open {project.title}</span></span>
+            </Link>
+            <div className="project-caption"><div><p className="eyebrow">{project.type} / {project.status}</p><h3><Link href={`/projects/${project.slug}`}>{project.title}</Link></h3></div><div><p>{project.shortDescription}</p><p className="project-tech">{project.technologies.join(" · ")}</p></div></div>
+          </article></div>
+        )) : <p className="py-10">Projects will appear here as they are published.</p>}
       </section>
-
-      <section className="signal-shell grid gap-8 border-t border-white/15 py-12 sm:py-20 md:grid-cols-2 md:gap-12" data-signal-reveal>
-        <div>
-          <p className="editorial-label">About</p>
-          <h2 className="signal-heading mt-3">Learning by building</h2>
-          <p className="mt-4 max-w-lg leading-relaxed">{profile.biography}</p>
-          <Link href="/about" className="editorial-link mt-4">More about me <ArrowRight size={16} aria-hidden /></Link>
-        </div>
-        <div>
-          <h2 className="editorial-label mb-3">Currently learning</h2>
-          <ul>{profile.currentLearning.map((item) => <li key={item} className="border-t border-current/15 py-3">{item}</li>)}</ul>
-        </div>
+      <section className="studio-story">
+        <Reveal className="studio-introduction section-shell">
+          <p className="eyebrow">02 / The person behind the work</p>
+          <h2>Small experiments.<br /><span>A bigger picture.</span></h2>
+          <div className="introduction-copy"><p>{profile.biography}</p><Link className="pill-link" href="/about">Get to know me <ArrowUpRight size={18} aria-hidden /></Link></div>
+        </Reveal>
+        <div className="story-wordmark" aria-hidden="true">Always becoming.</div>
       </section>
-
-      <section className="signal-band">
-        <div className="signal-trace" aria-hidden />
-        <div className="signal-shell py-12 sm:py-20" data-signal-reveal>
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h2 className="signal-heading">Toolkit</h2>
-            <Link href="/skills" className="editorial-link">Explore skills <ArrowUpRight size={16} aria-hidden /></Link>
-          </div>
-          <dl className="mt-8">
-            {skills.map((group) => (
-              <div key={group.id} className="grid gap-3 border-t border-white/20 py-4 sm:grid-cols-[12rem_1fr]">
-                <dt className="editorial-label self-center">{group.category}</dt>
-                <dd>
-                  <ul className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => <li key={skill}><TechnologyLink skill={skill} /></li>)}
-                  </ul>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+      <section className="studio-learning section-shell">
+        <Reveal><p className="eyebrow">03 / A work in progress</p><h2>A foundation<br />for what’s next.</h2><p className="learning-goal">{profile.professionalGoals}</p></Reveal>
+        <div className="learning-detail"><div><h3>{profile.university}</h3><p>{profile.study}</p><p className="mt-4">{profile.currentStudies}</p></div><div><h3>Currently exploring</h3><ul>{profile.currentLearning.map((item) => <li key={item}>{item}</li>)}</ul></div></div>
       </section>
-
-      <section className="signal-shell py-12 sm:py-20" data-signal-reveal>
-        <h2 className="signal-heading">Get in touch</h2>
-        <p className="mt-4 max-w-md leading-relaxed">I’m interested in internships, graduate roles and conversations about technology.</p>
-        <div className="mt-5 flex flex-wrap items-center gap-5">
-          <Link href="/contact" className="editorial-action">Contact me <ArrowUpRight size={16} aria-hidden /></Link>
-          <Link href="/resume" className="editorial-link">Request resume <ArrowUpRight size={16} aria-hidden /></Link>
-        </div>
+      <section className="studio-toolkit section-shell">
+        <Reveal className="section-topline"><div><p className="eyebrow">04 / Tools for the next idea</p><h2>Built with curiosity<span>.</span></h2></div><Link className="pill-link" href="/skills">Explore technologies <ArrowUpRight size={18} aria-hidden /></Link></Reveal>
+        <dl>{skills.map((group) => <div key={group.id}><dt>{group.category}</dt><dd><ul>{group.skills.map((skill) => <li key={skill}><TechnologyLink skill={skill} /></li>)}</ul></dd></div>)}</dl>
       </section>
-    </div>
+    </ScrollPresentation>
   );
 }

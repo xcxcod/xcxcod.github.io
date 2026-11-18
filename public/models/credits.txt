@@ -1,5 +1,0 @@
-Perseverance rover model: NASA / Jet Propulsion Laboratory.
-https://science.nasa.gov/3d-resources/mars-2020-perseverance-rover/
-
-Draco decoder files are distributed with Three.js. See the decoder
-source notices and https://github.com/google/draco/blob/main/LICENSE.

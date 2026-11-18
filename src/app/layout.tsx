@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "@/app/globals.css";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
-import { RocketToTop } from "@/components/layout/rocket-to-top";
 import { profile } from "@/lib/sample-data";
-
-const displayFont = localFont({
-  src: "../../public/fonts/ChakraPetch-SemiBold.ttf",
-  weight: "600",
-  display: "swap",
-  variable: "--portfolio-display-font"
-});
+import { StudioIntro } from "@/components/layout/studio-intro";
+import { FluidCursor } from "@/components/layout/fluid-cursor";
 
 export const metadata: Metadata = {
   title: "Dani Adonai | IT Portfolio",
@@ -20,12 +13,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark ${displayFont.variable}`} suppressHydrationWarning>
-      <body className="bg-mist font-sans text-ink antialiased dark:bg-slate-950 dark:text-slate-100">
-        <Navbar profile={profile} />
-        <main id="portfolio-main" tabIndex={-1}>{children}</main>
-        <Footer profile={profile} />
-        <RocketToTop />
+    <html lang="en">
+      <body className="antialiased">
+        <a className="skip-to-content" href="#portfolio-main">Skip to content</a>
+        <div id="portfolio-page">
+          <Navbar profile={profile} />
+          <main id="portfolio-main" tabIndex={-1}>{children}</main>
+          <Footer profile={profile} />
+        </div>
+        <StudioIntro />
+        <FluidCursor />
       </body>
     </html>
   );

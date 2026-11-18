@@ -7,7 +7,7 @@ import { ArrowUpRight, GitBranch, Layers, PanelsTopLeft, Route } from "lucide-re
 import { ProjectVisual } from "./project-visual";
 import { ResumeWalkthrough } from "./resume-walkthrough";
 import type { Project } from "@/types/portfolio";
-import portfolioInterface from "../../../public/images/portfolio-interface.png";
+import portfolioInterface from "../../../public/images/portfolio-current.jpg";
 
 const views = [
   { name: "Interface", icon: PanelsTopLeft },
@@ -49,8 +49,8 @@ export function TraceBuild({ project }: { project: Project }) {
             <div className="trace-content">
               {project.imageUrl ? <ProjectVisual project={project} /> : (
                 <figure>
-                  <Image src={portfolioInterface} alt="Earlier portfolio homepage with the Melbourne skyline and an overview of the technology stack" className="h-auto w-full border border-current/20" />
-                  <figcaption className="mt-2 text-xs">Homepage from an earlier release</figcaption>
+                  <Image src={portfolioInterface} alt="Current portfolio homepage with editorial typography and an interactive blue sculpture" className="h-auto w-full border border-current/20" />
+                  <figcaption className="mt-2 text-xs">Current portfolio interface</figcaption>
                 </figure>
               )}
               <h3>Explore the live interface</h3>
